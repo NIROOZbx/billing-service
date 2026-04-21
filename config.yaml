@@ -1,0 +1,14 @@
+app:
+  name: "billing-service"
+  port: "50051"
+  environment: "development"
+
+database:
+  max_open_conns: 50
+  min_open_conns: 25
+  max_idle_conns: 25
+  max_conn_lifetime: "30m"
+  max_idle_time: "5m"
+
+stripe:
+  api_key: "sk_test_dummy"

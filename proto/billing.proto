@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package billing.v1;
+
+option go_package = "github.com/NIROOZbx/billing-service/gen/billing/v1;billingv1";
+
+service BillingService {
+    rpc CheckLimit(CheckLimitRequest) returns (CheckLimitResponse);
+    rpc RecordUsage(RecordUsageRequest) returns (RecordUsageResponse);
+    rpc GetUsage(GetUsageRequest) returns (GetUsageResponse);
+    rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
+    rpc CancelSubscription(CancelSubscriptionRequest) returns (CancelSubscriptionResponse);
+    rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
+}
+
+message CheckLimitRequest {
+    string workspace_id = 1;
+    string environment_id = 2;
+    string channel = 3;
+}
+
+message CheckLimitResponse {
+    bool allowed = 1;
+    string reason = 2;
+    int32 limit = 3;
+    int32 current = 4;
+    string reset_at = 5;
+}
+
+message RecordUsageRequest {
+    string workspace_id = 1;
+    string environment_id = 2;
+    string channel_config_id = 3;
+    string channel = 4;
+    string provider = 5;
+    bool success = 6;
+}
+
+message RecordUsageResponse {
+    bool acknowledged = 1;
+}
+
+message GetUsageRequest {
+    string workspace_id = 1;
+    string environment_id = 2;
+}
+
+message GetUsageResponse {
+    string workspace_id = 1;
+    string environment_id = 2;
+    int32 email_count = 3;
+    int32 sms_count = 4;
+    int32 push_count = 5;
+    int32 slack_count = 6;
+    int32 whatsapp_count = 7;
+    int32 webhook_count = 8;
+    int32 in_app_count = 9;
+    string period_start = 10;
+    string period_end = 11;
+    string subscription_status = 12; 
+}
+
+message CreateSubscriptionRequest {
+    string workspace_id = 1;
+    string plan_id = 2;
+    string payment_provider = 3;
+    string external_subscription_id = 4;
+    string external_customer_id = 5;
+}
+
+message CreateSubscriptionResponse {
+    string subscription_id = 1;
+    bool success = 2;
+}
+
+message CancelSubscriptionRequest {
+    string workspace_id = 1;
+    string subscription_id = 2;
+}
+
+message CancelSubscriptionResponse {
+    bool success = 1;
+}
+
+message GetSubscriptionRequest {
+    string workspace_id = 1;
+}
+
+message GetSubscriptionResponse {
+    string subscription_id = 1;
+    string plan_name = 2;
+    string status = 3;
+    string current_period_end = 4;
+    string payment_provider = 5;
+}

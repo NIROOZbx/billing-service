@@ -1,0 +1,68 @@
+version: '3'
+
+dotenv: [".env"]
+
+vars:
+  MIGRATION_PATH: "db/migration"
+  DB_URL: "postgres://{{.DB_USER}}:{{.DB_PASSWORD}}@localhost:{{.DB_PORT}}/{{.DB_NAME}}?sslmode=disable"
+
+tasks:
+  gen-proto:
+    desc: Generate Go code from protobuf definitions
+    cmds:
+      - |
+        protoc --proto_path=proto \
+               --go_out=proto --go_opt=paths=source_relative \
+               --go-grpc_out=proto --go-grpc_opt=paths=source_relative \
+               proto/*.proto
+    sources:
+      - proto/*.proto
+    generates:
+      - proto/*.pb.go
+
+  migrate-create:
+    desc: Create a new migration file pair
+    cmds:
+      - echo "Creating migration files..."
+      - migrate create -ext sql -dir {{.MIGRATION_PATH}} -seq {{.CLI_ARGS}}
+
+  migrate-down:
+    cmds:
+      - echo "Dropping database schema..."
+      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" down {{.CLI_ARGS}}
+
+  migrate-up:
+    cmds:
+      - echo "Applying database migrations..."
+      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" up
+      - echo "✅ Database is up to date!"
+
+  migrate-force:
+    cmds:
+      - echo "Forcing database migration..."
+      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" force {{.CLI_ARGS}}
+
+  gen-sql:
+    desc: Generate Go code from SQL queries using sqlc
+    cmds:
+      - sqlc generate
+
+  generate:
+    desc: Run all generation tasks
+    deps: [gen-proto, gen-sql]
+
+  build:
+    desc: Build the service binary
+    cmds:
+      - go build -o bin/billing-service ./cmd
+
+  tidy:
+    desc: Run go mod tidy
+    cmds:
+      - go mod tidy
+      
+  run:
+    desc: Run the service locally
+    cmds:
+      - task: migrate-up
+      - go run ./cmd
