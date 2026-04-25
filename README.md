@@ -1,55 +1,92 @@
 # Billing Service
 
-A production-grade microservice for managing subscriptions, tracking resource usage, and monitoring provider performance within a multi-tenant notification ecosystem.
+A production-grade microservice for managing subscriptions, tracking resource usage, and proactively notifying workspaces of billing events within a multi-tenant notification ecosystem.
 
 ## 🚀 Overview
 
-The Billing Service acts as the "Accountant" and "Gatekeeper" for the Notification Engine. It ensures that workspaces stay within their plan limits and provides detailed analytics on how third-party providers (SendGrid, Twilio, etc.) are performing.
+The Billing Service acts as the **"Accountant"**, **"Gatekeeper"**, and **"Alert System"** for the Notification Engine. It ensures workspaces stay within their plan limits, manages Stripe subscriptions, and autonomously publishes billing events to Kafka so the Notification Engine can alert workspace owners in real time.
 
 ## 🏗️ Core Architecture
 
 - **Language**: Go 1.25+
-- **Communication**: gRPC
-- **Database**: PostgreSQL (with Schema-based multi-tenancy)
+- **Communication**: gRPC (internal), Kafka (event publishing)
+- **Database**: PostgreSQL with `billing` schema
 - **Migrations**: Golang Migrate
+- **Query Layer**: SQLC (type-safe generated queries)
 - **Configuration**: Viper / godotenv
 
-### Key Services
-- **`CheckLimit`**: High-performance gatekeeper that validates if a workspace has the credits/subscription to send a notification.
-- **`RecordUsage`**: Atomic counter management for customer billing and infrastructure monitoring.
-- **`Subscription Lifecycle`**: Management of Stripe/LemonSqueezy subscriptions.
+## ✨ Key Features
+
+### gRPC API
+| Method | Description |
+|---|---|
+| `CheckLimit` | Validates if a workspace can send for a given channel. Treats missing usage as zero (new workspaces always allowed). |
+| `RecordUsage` | Atomically increments channel and provider usage counters. |
+| `CreateSubscription` | Creates a new subscription for a workspace. Cancels any existing active subscription first. |
+| `CancelSubscription` | Marks a subscription as cancelled. |
+| `GetSubscription` | Returns the current active subscription and plan for a workspace. |
+| `GetUsage` | Returns usage summary per channel for a workspace/environment. |
+| `CreateCheckoutSession` | Creates a Stripe Checkout Session and returns the redirect URL. |
+
+### Background Scheduler
+A background cron job polls for subscriptions expiring within 3 days and publishes a `subscription_expiry_reminder` event to Kafka. It uses a `expiry_3d_sent` flag to prevent duplicate alerts.
+
+### Usage Limit Alerting
+Integrated directly into the `RecordUsage` flow. When a channel crosses **80%** or **100%** of its plan limit, the service automatically publishes a `subscription_limit_reached_80` or `subscription_limit_reached_100` event to Kafka.
+
+### Stripe Webhook Handler
+Handles `customer.subscription.updated` to keep subscription status, period dates, and billing state synchronized with Stripe in real time.
 
 ## 📁 Project Structure
 
 ```text
-├── cmd/                # Entry points (main.go, cmd.go)
-├── db/                 # Database migrations and SQLC queries
+├── cmd/                    # Entry points (main.go, cmd.go)
+├── config/                 # Config struct and Viper loader
+├── db/
+│   ├── migrations/         # SQL migration files (up & down)
+│   ├── query/              # SQLC query definitions
+│   └── sqlc/               # SQLC generated Go code
 ├── internal/
-│   ├── app/           # Application container & dependency injection
-│   ├── domain/        # Core business models
-│   ├── handlers/      # gRPC server implementations
-│   ├── repositories/  # Database access layer (SQLC generated)
-├── proto/              # Protobuf definitions
-├── Taskfile.yml       # Automation tasks (build, run, migrate)
-└── config.yaml        # Local configuration
+│   ├── app/                # Application container & dependency wiring
+│   ├── cron/               # Background expiry scheduler
+│   ├── domain/             # Core business models and interfaces
+│   ├── handlers/           # gRPC and Webhook HTTP handlers
+│   ├── producer/           # Kafka producer (interface + implementation)
+│   ├── repositories/       # Database access layer
+│   ├── services/           # Business logic layer
+│   └── stripe/             # Stripe billing provider implementation
+├── pkg/
+│   ├── apperrors/          # Sentinel error types
+│   ├── constants/          # Kafka topics, event types, subscription statuses
+│   └── helpers/            # UUID/pgtype conversion utilities
+├── proto/                  # Protobuf definitions and generated Go code
+├── Taskfile.yml            # Task automation (build, run, migrate, gen-sql)
+├── config.yaml             # Local configuration
+└── docker-compose.yml      # Local dev stack (Postgres, Kafka)
 ```
 
 ## 🛠️ Getting Started
 
-### 1. Prerequisites
+### Prerequisites
 - Docker & Docker Compose
 - Go 1.25+
-- `migrate` CLI (`brew install golang-migrate`)
+- `migrate` CLI
+- `sqlc` CLI
+- `grpcurl` (for manual testing)
 
-### 2. Setup Environment
-Copy the example environment file and update your credentials:
+### 1. Start Infrastructure
 ```bash
-cp .env.example .env
+docker compose up -d
 ```
 
-### 3. Run Migrations
+### 2. Run Migrations
 ```bash
 task migrate-up
+```
+
+### 3. Generate SQLC
+```bash
+task gen-sql
 ```
 
 ### 4. Run the Service
@@ -57,12 +94,34 @@ task migrate-up
 task run
 ```
 
+### 5. Test via grpcurl (Windows PowerShell)
+```powershell
+# Create a subscription for a workspace
+[System.IO.File]::WriteAllText("$PWD\req.json", '{"workspace_id":"YOUR_WORKSPACE_ID","plan_id":"YOUR_PLAN_ID","payment_provider":"system"}')
+grpcurl -plaintext -d "@req.json" localhost:8081 billing.v1.BillingService/CreateSubscription
+
+# Check sending limit
+[System.IO.File]::WriteAllText("$PWD\req.json", '{"workspace_id":"YOUR_WORKSPACE_ID","environment_id":"YOUR_ENV_ID","channel":"email"}')
+grpcurl -plaintext -d "@req.json" localhost:8081 billing.v1.BillingService/CheckLimit
+```
+
 ## 📊 Database Schema
 
-The service uses a sophisticated schema designed for scalability:
-1.  **`billing.subscriptions`**: Tracks workspace-level plan assignments and provider IDs.
-2.  **`billing.usage`**: Tracks per-environment, per-channel consumption.
-3.  **`billing.provider_usage`**: Tracks success/failure rates of individual channel configurations.
+| Table | Purpose |
+|---|---|
+| `billing.subscriptions` | Workspace-level plan assignments, Stripe IDs, period dates, expiry alert flags |
+| `billing.usage` | Per-environment, per-channel consumption with 80%/100% alert flags |
+| `billing.provider_usage` | Success/failure rates of individual provider configurations |
+
+## 📡 Kafka Events
+
+All events are published to the `system.notifications` topic.
+
+| Event Type | Trigger | `environment_id` |
+|---|---|---|
+| `subscription_expiry_reminder` | Subscription expiring within 3 days | `FallBackUUID` (resolved to Production) |
+| `subscription_limit_reached_80` | Channel usage crosses 80% of plan limit | Real environment ID |
+| `subscription_limit_reached_100` | Channel usage crosses 100% of plan limit | Real environment ID |
 
 ---
 Built with ❤️ by NIROOZbx Labs.

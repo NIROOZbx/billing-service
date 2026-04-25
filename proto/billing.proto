@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+
 package billing.v1;
 
 option go_package = "github.com/NIROOZbx/billing-service/gen/billing/v1;billingv1";
@@ -11,8 +12,20 @@ service BillingService {
     rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
     rpc CancelSubscription(CancelSubscriptionRequest) returns (CancelSubscriptionResponse);
     rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
+    rpc CreateCheckoutSession(CreateCheckoutSessionRequest) returns (CreateCheckoutSessionResponse);
 }
 
+
+
+message CreateCheckoutSessionRequest {
+    string workspace_id = 1;
+    string plan_id = 2;
+    string customer_email = 3;
+}
+
+message CreateCheckoutSessionResponse {
+    string checkout_url = 1;
+}
 message CheckLimitRequest {
     string workspace_id = 1;
     string environment_id = 2;
@@ -45,19 +58,18 @@ message GetUsageRequest {
     string environment_id = 2;
 }
 
+message ChannelUsage {
+    string channel_name = 1;
+    int64 current_usage = 2;
+}
+
 message GetUsageResponse {
     string workspace_id = 1;
     string environment_id = 2;
-    int32 email_count = 3;
-    int32 sms_count = 4;
-    int32 push_count = 5;
-    int32 slack_count = 6;
-    int32 whatsapp_count = 7;
-    int32 webhook_count = 8;
-    int32 in_app_count = 9;
-    string period_start = 10;
-    string period_end = 11;
-    string subscription_status = 12; 
+    repeated ChannelUsage usage = 3;
+    string period_start = 4;
+    string period_end = 5;
+    string subscription_status = 6;
 }
 
 message CreateSubscriptionRequest {

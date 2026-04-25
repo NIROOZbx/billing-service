@@ -1,6 +1,7 @@
 app:
   name: "billing-service"
   port: "50051"
+  http_port: "8081"
   environment: "development"
 
 database:
@@ -10,5 +11,14 @@ database:
   max_conn_lifetime: "30m"
   max_idle_time: "5m"
 
-stripe:
-  api_key: "sk_test_dummy"
+log:
+  level: "info"
+  file: "logs/billing-service.log"
+  max_size_mb: 50
+  max_backups: 3
+  max_age_days: 28
+
+kafka:
+  broker_address: "localhost:9093"
+  batch_size: 100
+  batch_timeout_ms: 10

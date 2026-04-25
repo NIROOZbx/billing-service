@@ -1,0 +1,301 @@
+{"level":"info","time":"2026-04-23T06:53:49+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T06:56:16+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T06:56:16+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T06:56:16+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T06:58:15+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T06:58:15+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T06:58:15+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:00:42+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:00:42+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:00:42+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:01:55+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:01:55+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:01:55+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:01:55+05:30","caller":"C:/billing-service/cmd/cmd.go:52","message":"🟢 Service is fully started and running"}
+{"level":"info","time":"2026-04-23T07:02:18+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:02:18+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:02:18+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:03:31+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:03:31+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:03:31+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:03:56+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:03:56+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:03:56+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:03:56+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running"}
+{"level":"info","time":"2026-04-23T07:05:04+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:05:04+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:05:04+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:05:04+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running"}
+{"level":"info","time":"2026-04-23T07:06:45+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:06:45+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:06:45+05:30","caller":"C:/billing-service/cmd/cmd.go:42","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:06:45+05:30","caller":"C:/billing-service/cmd/cmd.go:59","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T07:08:12+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:08:12+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:08:12+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:08:12+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T07:09:05+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:09:05+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:09:05+05:30","caller":"C:/billing-service/cmd/cmd.go:34","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:09:05+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T07:27:29+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:27:29+05:30","caller":"C:/billing-service/cmd/cmd.go:44","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:27:29+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:27:29+05:30","caller":"C:/billing-service/cmd/cmd.go:35","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:30:30+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:30:30+05:30","caller":"C:/billing-service/cmd/cmd.go:55","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:30:30+05:30","caller":"C:/billing-service/cmd/cmd.go:40","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:30:30+05:30","caller":"C:/billing-service/cmd/cmd.go:49","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:30:34+05:30","caller":"C:/billing-service/cmd/cmd.go:59","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T07:30:34+05:30","caller":"C:/billing-service/cmd/cmd.go:93","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T07:30:34+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T07:30:38+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:30:38+05:30","caller":"C:/billing-service/cmd/cmd.go:55","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:30:38+05:30","caller":"C:/billing-service/cmd/cmd.go:40","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:30:38+05:30","caller":"C:/billing-service/cmd/cmd.go:49","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:31:45+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:31:45+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:31:45+05:30","caller":"C:/billing-service/cmd/cmd.go:35","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:31:45+05:30","caller":"C:/billing-service/cmd/cmd.go:44","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:31:46+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T07:31:46+05:30","caller":"C:/billing-service/cmd/cmd.go:88","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T07:31:46+05:30","caller":"C:/billing-service/cmd/cmd.go:105","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T07:37:04+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:37:05+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:37:05+05:30","caller":"C:/billing-service/cmd/cmd.go:35","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:37:05+05:30","caller":"C:/billing-service/cmd/cmd.go:44","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:38:40+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:38:40+05:30","caller":"C:/billing-service/cmd/cmd.go:51","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:38:40+05:30","caller":"C:/billing-service/cmd/cmd.go:36","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:38:40+05:30","caller":"C:/billing-service/cmd/cmd.go:45","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:41:23+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:41:23+05:30","caller":"C:/billing-service/cmd/cmd.go:56","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:41:23+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:41:23+05:30","caller":"C:/billing-service/cmd/cmd.go:41","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:44:07+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:44:07+05:30","caller":"C:/billing-service/cmd/cmd.go:41","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:44:07+05:30","caller":"C:/billing-service/cmd/cmd.go:56","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:44:07+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:45:22+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:45:22+05:30","caller":"C:/billing-service/cmd/cmd.go:41","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:45:22+05:30","caller":"C:/billing-service/cmd/cmd.go:56","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:45:22+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:46:21+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:46:21+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T07:46:21+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:46:21+05:30","caller":"C:/billing-service/cmd/cmd.go:41","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T07:48:16+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:48:16+05:30","caller":"C:/billing-service/cmd/cmd.go:41","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:48:16+05:30","caller":"C:/billing-service/cmd/cmd.go:50","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T07:48:16+05:30","caller":"C:/billing-service/cmd/cmd.go:56","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T07:49:57+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T07:49:57+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T07:49:57+05:30","caller":"C:/billing-service/cmd/cmd.go:43","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T07:49:57+05:30","caller":"C:/billing-service/cmd/cmd.go:52","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T08:07:44+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T08:07:44+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T08:07:44+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T08:07:44+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"error","error":"HTTP server error: listen tcp :50051: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.","time":"2026-04-23T08:07:44+05:30","caller":"C:/billing-service/cmd/cmd.go:57","message":"💥 Server crashed during runtime"}
+{"level":"info","time":"2026-04-23T08:08:58+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T08:08:58+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T08:08:58+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T08:08:58+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T08:09:42+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T08:09:42+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T08:09:42+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T08:09:42+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"error","error":"HTTP server error: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.","time":"2026-04-23T08:09:42+05:30","caller":"C:/billing-service/cmd/cmd.go:57","message":"💥 Server crashed during runtime"}
+{"level":"info","time":"2026-04-23T08:09:52+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T08:09:52+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T08:09:52+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T08:09:52+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T09:33:23+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T09:33:23+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T09:33:23+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T09:33:23+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T10:08:05+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:08:06+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:08:06+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:08:06+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T10:10:33+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:10:33+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:10:33+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:10:33+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T10:12:57+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:12:57+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:12:57+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:12:57+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:17:32+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T10:17:32+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T10:17:32+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:17:32+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:19:12+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:21:44+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:21:44+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:21:44+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:21:44+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:21:49+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T10:21:49+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T10:21:49+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:21:49+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:22:29+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:22:29+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T10:22:29+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:22:29+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:25:30+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:25:30+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:25:30+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T10:25:30+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-23T10:29:40+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:29:41+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:29:41+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:29:41+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T10:33:17+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T10:33:17+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T10:33:17+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:33:17+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:33:53+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:33:53+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:33:53+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:33:53+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T10:35:27+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:35:27+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:35:27+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:35:27+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:35:47+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:35:47+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:35:47+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:35:47+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:48:58+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T10:48:58+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T10:48:58+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:48:58+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:49:03+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:49:03+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:49:03+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T10:49:03+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T10:49:04+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T10:49:04+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T10:49:04+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:49:04+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T10:49:28+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T10:49:29+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T10:49:29+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T10:49:29+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T11:00:47+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T11:00:47+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T11:00:47+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:00:47+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:01:14+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T11:01:14+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T11:01:14+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T11:01:14+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-23T11:01:57+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T11:01:57+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T11:01:57+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:01:57+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:02:03+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T11:02:03+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T11:02:03+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T11:02:03+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T11:03:47+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T11:03:47+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T11:03:47+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:03:47+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T11:04:00+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","port":"8081","time":"2026-04-23T11:04:00+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T11:04:00+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T11:04:00+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"error","error":"invalid metadata variables: invalid workspace id: invalid UUID length: 0","time":"2026-04-23T11:04:09+05:30","caller":"C:/billing-service/internal/handlers/webhook.go:41","message":"❌ Failed to parse billing event"}
+{"level":"info","time":"2026-04-23T19:12:06+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T19:12:06+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T19:12:06+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T19:12:06+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T19:12:16+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T19:12:16+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","port":"8081","time":"2026-04-23T19:12:16+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T19:12:16+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-23T19:26:23+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T19:26:23+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T19:26:23+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T19:26:23+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-23T19:26:34+05:30","caller":"C:/billing-service/internal/app/app.go:28","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-23T19:26:34+05:30","caller":"C:/billing-service/cmd/cmd.go:53","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-23T19:26:34+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-23T19:26:34+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-23T19:49:24+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","time":"2026-04-23T22:05:05+05:30","caller":"C:/billing-service/cmd/cmd.go:60","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-23T22:05:05+05:30","caller":"C:/billing-service/cmd/cmd.go:91","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-23T22:05:05+05:30","caller":"C:/billing-service/cmd/cmd.go:99","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-23T22:05:05+05:30","caller":"C:/billing-service/cmd/cmd.go:110","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/internal/app/app.go:33","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"Starting subscription expiry scheduler"}
+{"level":"info","port":"8081","time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","interval":3600000,"time":"2026-04-25T23:03:33+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:77","message":"scheduler started"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:05:46+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","time":"2026-04-25T23:13:35+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:84","message":"scheduler stopped"}
+{"level":"info","time":"2026-04-25T23:13:35+05:30","caller":"C:/billing-service/cmd/cmd.go:65","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-25T23:13:35+05:30","caller":"C:/billing-service/cmd/cmd.go:96","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-25T23:13:35+05:30","caller":"C:/billing-service/cmd/cmd.go:104","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:13:35+05:30","caller":"C:/billing-service/cmd/cmd.go:115","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/internal/app/app.go:33","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"Starting subscription expiry scheduler"}
+{"level":"info","interval":3600000,"time":"2026-04-25T23:13:44+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:79","message":"scheduler started"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:15:42+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:29:54+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","time":"2026-04-25T23:43:01+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:86","message":"scheduler stopped"}
+{"level":"info","time":"2026-04-25T23:43:01+05:30","caller":"C:/billing-service/cmd/cmd.go:65","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-25T23:43:01+05:30","caller":"C:/billing-service/cmd/cmd.go:96","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-25T23:43:01+05:30","caller":"C:/billing-service/cmd/cmd.go:104","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:43:01+05:30","caller":"C:/billing-service/cmd/cmd.go:115","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/internal/app/app.go:33","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"Starting subscription expiry scheduler"}
+{"level":"info","time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","interval":3600000,"time":"2026-04-25T23:43:25+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:79","message":"scheduler started"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:46:09+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:46:18+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","provider":"ses","success":true,"time":"2026-04-25T23:46:19+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:94","message":"gRPC: RecordUsage requested"}
+{"level":"info","time":"2026-04-25T23:56:36+05:30","caller":"C:/billing-service/cmd/cmd.go:65","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-25T23:56:36+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:86","message":"scheduler stopped"}
+{"level":"info","time":"2026-04-25T23:56:36+05:30","caller":"C:/billing-service/cmd/cmd.go:96","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-25T23:56:36+05:30","caller":"C:/billing-service/cmd/cmd.go:104","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:56:36+05:30","caller":"C:/billing-service/cmd/cmd.go:115","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/internal/app/app.go:33","message":"Starting billing service..."}
+{"level":"info","time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"Starting subscription expiry scheduler"}
+{"level":"info","port":"8081","time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","interval":3600000,"time":"2026-04-25T23:56:47+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:79","message":"scheduler started"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-25T23:57:17+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","time":"2026-04-26T00:06:06+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:86","message":"scheduler stopped"}
+{"level":"info","time":"2026-04-26T00:06:06+05:30","caller":"C:/billing-service/cmd/cmd.go:65","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-26T00:06:06+05:30","caller":"C:/billing-service/cmd/cmd.go:96","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-26T00:06:06+05:30","caller":"C:/billing-service/cmd/cmd.go:104","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-26T00:06:06+05:30","caller":"C:/billing-service/cmd/cmd.go:115","message":"gRPC server stopped gracefully"}
+{"level":"info","time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/internal/app/app.go:33","message":"Starting billing service..."}
+{"level":"info","service":"billing-service","addr":":50051","time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/cmd/cmd.go:38","message":"Starting gRPC server"}
+{"level":"info","port":"8081","time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/cmd/cmd.go:47","message":"Starting HTTP server"}
+{"level":"info","time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/cmd/cmd.go:54","message":"Starting subscription expiry scheduler"}
+{"level":"info","time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/cmd/cmd.go:58","message":"🟢 Service is fully started and running. Waiting for signals..."}
+{"level":"info","interval":3600000,"time":"2026-04-26T00:06:18+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:79","message":"scheduler started"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-26T00:22:48+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"sms","time":"2026-04-26T00:23:09+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-26T00:23:09+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"sms","time":"2026-04-26T00:23:15+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","time":"2026-04-26T00:23:15+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:51","message":"gRPC: CheckLimit requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"sms","provider":"twilio","success":false,"time":"2026-04-26T00:23:15+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:94","message":"gRPC: RecordUsage requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"email","provider":"ses","success":true,"time":"2026-04-26T00:23:16+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:94","message":"gRPC: RecordUsage requested"}
+{"level":"info","workspace_id":"2404e6ad-e945-4b39-8703-27d57687bd78","channel":"sms","provider":"twilio","success":true,"time":"2026-04-26T00:24:40+05:30","caller":"C:/billing-service/internal/handlers/grpc.go:94","message":"gRPC: RecordUsage requested"}
+{"level":"info","time":"2026-04-26T00:26:20+05:30","caller":"C:/billing-service/internal/cron/schdeuler.go:86","message":"scheduler stopped"}
+{"level":"info","time":"2026-04-26T00:26:20+05:30","caller":"C:/billing-service/cmd/cmd.go:65","message":"🛑 Received shutdown signal. Starting graceful shutdown..."}
+{"level":"info","time":"2026-04-26T00:26:20+05:30","caller":"C:/billing-service/cmd/cmd.go:96","message":"❌ Service is gracefully stopping"}
+{"level":"info","time":"2026-04-26T00:26:20+05:30","caller":"C:/billing-service/cmd/cmd.go:104","message":"HTTP server stopped gracefully"}
+{"level":"info","time":"2026-04-26T00:26:20+05:30","caller":"C:/billing-service/cmd/cmd.go:115","message":"gRPC server stopped gracefully"}

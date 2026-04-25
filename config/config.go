@@ -13,11 +13,14 @@ type Config struct {
 	App      AppConfig      `mapstructure:"app"`
 	Database DatabaseConfig `mapstructure:"database"`
 	Stripe   StripeConfig   `mapstructure:"stripe"`
+	Log      LogConfig      `mapstructure:"log"`
+	Kafka KafkaConfig `mapstructure:"kafka"`
 }
 
 type AppConfig struct {
 	Name        string `mapstructure:"name"`
 	Port        string `mapstructure:"port"`
+	HttpPort    string `mapstructure:"http_port"`
 	Environment string `mapstructure:"environment"`
 }
 
@@ -36,7 +39,23 @@ type DatabaseConfig struct {
 }
 
 type StripeConfig struct {
-	ApiKey string `mapstructure:"api_key"`
+	ApiKey        string `mapstructure:"api_key"`
+	WebhookSecret string `mapstructure:"webhook_secret"`
+	SuccessURL string `mapstructure:"success_url"`
+	CancelURL string `mapstructure:"cancel_url"`
+}
+
+type LogConfig struct {
+	Level      string `mapstructure:"level"`
+	File       string `mapstructure:"file"`
+	MaxSizeMB  int    `mapstructure:"max_size_mb"`
+	MaxBackups int    `mapstructure:"max_backups"`
+	MaxAgeDays int    `mapstructure:"max_age_days"`
+}
+type KafkaConfig struct {
+	BrokerAddress  string `mapstructure:"broker_address"`
+	BatchSize      int    `mapstructure:"batch_size"`
+	BatchTimeoutMS int    `mapstructure:"batch_timeout_ms"`
 }
 
 func LoadConfig() (*Config, error) {
@@ -56,6 +75,10 @@ func LoadConfig() (*Config, error) {
 	v.BindEnv("database.host", "DB_HOST")
 	v.BindEnv("database.port", "DB_PORT")
 	v.BindEnv("database.name", "DB_NAME")
+	v.BindEnv("stripe.api_key", "STRIPE_API_KEY")
+	v.BindEnv("stripe.webhook_secret", "STRIPE_WEBHOOK_SECRET")
+	v.BindEnv("success_url","STRIPE_SUCCESS_URL")
+	v.BindEnv("cancel_url","STRIPE_CANCEL_URL")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file: %w", err)
@@ -74,5 +97,29 @@ func LoadConfig() (*Config, error) {
 		config.Database.Name,
 	)
 
+	validate(&config)
+
 	return &config, nil
+}
+
+func validate(cfg *Config) {
+	rules := []struct {
+		value  string
+		envVar string
+	}{
+		{cfg.App.Port, "APP_PORT"},
+		{cfg.App.HttpPort, "APP_HTTP_PORT"},
+		{cfg.Database.User, "DB_USER"},
+		{cfg.Database.Password, "DB_PASSWORD"},
+		{cfg.Database.Host, "DB_HOST"},
+		{cfg.Database.Name, "DB_NAME"},
+		{cfg.Stripe.ApiKey, "STRIPE_API_KEY"},
+		{cfg.Stripe.WebhookSecret, "STRIPE_WEBHOOK_SECRET"},
+	}
+
+	for _, rule := range rules {
+		if rule.value == "" {
+			log.Fatalf("%s is required", rule.envVar)
+		}
+	}
 }

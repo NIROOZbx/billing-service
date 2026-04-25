@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BillingService_CheckLimit_FullMethodName         = "/billing.v1.BillingService/CheckLimit"
-	BillingService_RecordUsage_FullMethodName        = "/billing.v1.BillingService/RecordUsage"
-	BillingService_GetUsage_FullMethodName           = "/billing.v1.BillingService/GetUsage"
-	BillingService_CreateSubscription_FullMethodName = "/billing.v1.BillingService/CreateSubscription"
-	BillingService_CancelSubscription_FullMethodName = "/billing.v1.BillingService/CancelSubscription"
-	BillingService_GetSubscription_FullMethodName    = "/billing.v1.BillingService/GetSubscription"
+	BillingService_CheckLimit_FullMethodName            = "/billing.v1.BillingService/CheckLimit"
+	BillingService_RecordUsage_FullMethodName           = "/billing.v1.BillingService/RecordUsage"
+	BillingService_GetUsage_FullMethodName              = "/billing.v1.BillingService/GetUsage"
+	BillingService_CreateSubscription_FullMethodName    = "/billing.v1.BillingService/CreateSubscription"
+	BillingService_CancelSubscription_FullMethodName    = "/billing.v1.BillingService/CancelSubscription"
+	BillingService_GetSubscription_FullMethodName       = "/billing.v1.BillingService/GetSubscription"
+	BillingService_CreateCheckoutSession_FullMethodName = "/billing.v1.BillingService/CreateCheckoutSession"
 )
 
 // BillingServiceClient is the client API for BillingService service.
@@ -37,6 +38,7 @@ type BillingServiceClient interface {
 	CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error)
 	CancelSubscription(ctx context.Context, in *CancelSubscriptionRequest, opts ...grpc.CallOption) (*CancelSubscriptionResponse, error)
 	GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error)
+	CreateCheckoutSession(ctx context.Context, in *CreateCheckoutSessionRequest, opts ...grpc.CallOption) (*CreateCheckoutSessionResponse, error)
 }
 
 type billingServiceClient struct {
@@ -107,6 +109,16 @@ func (c *billingServiceClient) GetSubscription(ctx context.Context, in *GetSubsc
 	return out, nil
 }
 
+func (c *billingServiceClient) CreateCheckoutSession(ctx context.Context, in *CreateCheckoutSessionRequest, opts ...grpc.CallOption) (*CreateCheckoutSessionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateCheckoutSessionResponse)
+	err := c.cc.Invoke(ctx, BillingService_CreateCheckoutSession_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BillingServiceServer is the server API for BillingService service.
 // All implementations must embed UnimplementedBillingServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type BillingServiceServer interface {
 	CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error)
 	CancelSubscription(context.Context, *CancelSubscriptionRequest) (*CancelSubscriptionResponse, error)
 	GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error)
+	CreateCheckoutSession(context.Context, *CreateCheckoutSessionRequest) (*CreateCheckoutSessionResponse, error)
 	mustEmbedUnimplementedBillingServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedBillingServiceServer) CancelSubscription(context.Context, *Ca
 }
 func (UnimplementedBillingServiceServer) GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSubscription not implemented")
+}
+func (UnimplementedBillingServiceServer) CreateCheckoutSession(context.Context, *CreateCheckoutSessionRequest) (*CreateCheckoutSessionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateCheckoutSession not implemented")
 }
 func (UnimplementedBillingServiceServer) mustEmbedUnimplementedBillingServiceServer() {}
 func (UnimplementedBillingServiceServer) testEmbeddedByValue()                        {}
@@ -274,6 +290,24 @@ func _BillingService_GetSubscription_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BillingService_CreateCheckoutSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCheckoutSessionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BillingServiceServer).CreateCheckoutSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BillingService_CreateCheckoutSession_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BillingServiceServer).CreateCheckoutSession(ctx, req.(*CreateCheckoutSessionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BillingService_ServiceDesc is the grpc.ServiceDesc for BillingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var BillingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSubscription",
 			Handler:    _BillingService_GetSubscription_Handler,
+		},
+		{
+			MethodName: "CreateCheckoutSession",
+			Handler:    _BillingService_CreateCheckoutSession_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

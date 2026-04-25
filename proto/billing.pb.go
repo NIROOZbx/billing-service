@@ -21,6 +21,110 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type CreateCheckoutSessionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	PlanId        string                 `protobuf:"bytes,2,opt,name=plan_id,json=planId,proto3" json:"plan_id,omitempty"`
+	CustomerEmail string                 `protobuf:"bytes,3,opt,name=customer_email,json=customerEmail,proto3" json:"customer_email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCheckoutSessionRequest) Reset() {
+	*x = CreateCheckoutSessionRequest{}
+	mi := &file_billing_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCheckoutSessionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCheckoutSessionRequest) ProtoMessage() {}
+
+func (x *CreateCheckoutSessionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_billing_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCheckoutSessionRequest.ProtoReflect.Descriptor instead.
+func (*CreateCheckoutSessionRequest) Descriptor() ([]byte, []int) {
+	return file_billing_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreateCheckoutSessionRequest) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *CreateCheckoutSessionRequest) GetPlanId() string {
+	if x != nil {
+		return x.PlanId
+	}
+	return ""
+}
+
+func (x *CreateCheckoutSessionRequest) GetCustomerEmail() string {
+	if x != nil {
+		return x.CustomerEmail
+	}
+	return ""
+}
+
+type CreateCheckoutSessionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CheckoutUrl   string                 `protobuf:"bytes,1,opt,name=checkout_url,json=checkoutUrl,proto3" json:"checkout_url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateCheckoutSessionResponse) Reset() {
+	*x = CreateCheckoutSessionResponse{}
+	mi := &file_billing_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateCheckoutSessionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCheckoutSessionResponse) ProtoMessage() {}
+
+func (x *CreateCheckoutSessionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_billing_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCheckoutSessionResponse.ProtoReflect.Descriptor instead.
+func (*CreateCheckoutSessionResponse) Descriptor() ([]byte, []int) {
+	return file_billing_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateCheckoutSessionResponse) GetCheckoutUrl() string {
+	if x != nil {
+		return x.CheckoutUrl
+	}
+	return ""
+}
+
 type CheckLimitRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	WorkspaceId   string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
@@ -32,7 +136,7 @@ type CheckLimitRequest struct {
 
 func (x *CheckLimitRequest) Reset() {
 	*x = CheckLimitRequest{}
-	mi := &file_billing_proto_msgTypes[0]
+	mi := &file_billing_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +148,7 @@ func (x *CheckLimitRequest) String() string {
 func (*CheckLimitRequest) ProtoMessage() {}
 
 func (x *CheckLimitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[0]
+	mi := &file_billing_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +161,7 @@ func (x *CheckLimitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckLimitRequest.ProtoReflect.Descriptor instead.
 func (*CheckLimitRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{0}
+	return file_billing_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CheckLimitRequest) GetWorkspaceId() string {
@@ -94,7 +198,7 @@ type CheckLimitResponse struct {
 
 func (x *CheckLimitResponse) Reset() {
 	*x = CheckLimitResponse{}
-	mi := &file_billing_proto_msgTypes[1]
+	mi := &file_billing_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -106,7 +210,7 @@ func (x *CheckLimitResponse) String() string {
 func (*CheckLimitResponse) ProtoMessage() {}
 
 func (x *CheckLimitResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[1]
+	mi := &file_billing_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -119,7 +223,7 @@ func (x *CheckLimitResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckLimitResponse.ProtoReflect.Descriptor instead.
 func (*CheckLimitResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{1}
+	return file_billing_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CheckLimitResponse) GetAllowed() bool {
@@ -171,7 +275,7 @@ type RecordUsageRequest struct {
 
 func (x *RecordUsageRequest) Reset() {
 	*x = RecordUsageRequest{}
-	mi := &file_billing_proto_msgTypes[2]
+	mi := &file_billing_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -183,7 +287,7 @@ func (x *RecordUsageRequest) String() string {
 func (*RecordUsageRequest) ProtoMessage() {}
 
 func (x *RecordUsageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[2]
+	mi := &file_billing_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -196,7 +300,7 @@ func (x *RecordUsageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordUsageRequest.ProtoReflect.Descriptor instead.
 func (*RecordUsageRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{2}
+	return file_billing_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *RecordUsageRequest) GetWorkspaceId() string {
@@ -250,7 +354,7 @@ type RecordUsageResponse struct {
 
 func (x *RecordUsageResponse) Reset() {
 	*x = RecordUsageResponse{}
-	mi := &file_billing_proto_msgTypes[3]
+	mi := &file_billing_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -262,7 +366,7 @@ func (x *RecordUsageResponse) String() string {
 func (*RecordUsageResponse) ProtoMessage() {}
 
 func (x *RecordUsageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[3]
+	mi := &file_billing_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -275,7 +379,7 @@ func (x *RecordUsageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordUsageResponse.ProtoReflect.Descriptor instead.
 func (*RecordUsageResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{3}
+	return file_billing_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RecordUsageResponse) GetAcknowledged() bool {
@@ -295,7 +399,7 @@ type GetUsageRequest struct {
 
 func (x *GetUsageRequest) Reset() {
 	*x = GetUsageRequest{}
-	mi := &file_billing_proto_msgTypes[4]
+	mi := &file_billing_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -307,7 +411,7 @@ func (x *GetUsageRequest) String() string {
 func (*GetUsageRequest) ProtoMessage() {}
 
 func (x *GetUsageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[4]
+	mi := &file_billing_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,7 +424,7 @@ func (x *GetUsageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsageRequest.ProtoReflect.Descriptor instead.
 func (*GetUsageRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{4}
+	return file_billing_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetUsageRequest) GetWorkspaceId() string {
@@ -337,27 +441,73 @@ func (x *GetUsageRequest) GetEnvironmentId() string {
 	return ""
 }
 
+type ChannelUsage struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ChannelName   string                 `protobuf:"bytes,1,opt,name=channel_name,json=channelName,proto3" json:"channel_name,omitempty"`
+	CurrentUsage  int64                  `protobuf:"varint,2,opt,name=current_usage,json=currentUsage,proto3" json:"current_usage,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChannelUsage) Reset() {
+	*x = ChannelUsage{}
+	mi := &file_billing_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChannelUsage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChannelUsage) ProtoMessage() {}
+
+func (x *ChannelUsage) ProtoReflect() protoreflect.Message {
+	mi := &file_billing_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChannelUsage.ProtoReflect.Descriptor instead.
+func (*ChannelUsage) Descriptor() ([]byte, []int) {
+	return file_billing_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ChannelUsage) GetChannelName() string {
+	if x != nil {
+		return x.ChannelName
+	}
+	return ""
+}
+
+func (x *ChannelUsage) GetCurrentUsage() int64 {
+	if x != nil {
+		return x.CurrentUsage
+	}
+	return 0
+}
+
 type GetUsageResponse struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	WorkspaceId        string                 `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
 	EnvironmentId      string                 `protobuf:"bytes,2,opt,name=environment_id,json=environmentId,proto3" json:"environment_id,omitempty"`
-	EmailCount         int32                  `protobuf:"varint,3,opt,name=email_count,json=emailCount,proto3" json:"email_count,omitempty"`
-	SmsCount           int32                  `protobuf:"varint,4,opt,name=sms_count,json=smsCount,proto3" json:"sms_count,omitempty"`
-	PushCount          int32                  `protobuf:"varint,5,opt,name=push_count,json=pushCount,proto3" json:"push_count,omitempty"`
-	SlackCount         int32                  `protobuf:"varint,6,opt,name=slack_count,json=slackCount,proto3" json:"slack_count,omitempty"`
-	WhatsappCount      int32                  `protobuf:"varint,7,opt,name=whatsapp_count,json=whatsappCount,proto3" json:"whatsapp_count,omitempty"`
-	WebhookCount       int32                  `protobuf:"varint,8,opt,name=webhook_count,json=webhookCount,proto3" json:"webhook_count,omitempty"`
-	InAppCount         int32                  `protobuf:"varint,9,opt,name=in_app_count,json=inAppCount,proto3" json:"in_app_count,omitempty"`
-	PeriodStart        string                 `protobuf:"bytes,10,opt,name=period_start,json=periodStart,proto3" json:"period_start,omitempty"`
-	PeriodEnd          string                 `protobuf:"bytes,11,opt,name=period_end,json=periodEnd,proto3" json:"period_end,omitempty"`
-	SubscriptionStatus string                 `protobuf:"bytes,12,opt,name=subscription_status,json=subscriptionStatus,proto3" json:"subscription_status,omitempty"`
+	Usage              []*ChannelUsage        `protobuf:"bytes,3,rep,name=usage,proto3" json:"usage,omitempty"`
+	PeriodStart        string                 `protobuf:"bytes,4,opt,name=period_start,json=periodStart,proto3" json:"period_start,omitempty"`
+	PeriodEnd          string                 `protobuf:"bytes,5,opt,name=period_end,json=periodEnd,proto3" json:"period_end,omitempty"`
+	SubscriptionStatus string                 `protobuf:"bytes,6,opt,name=subscription_status,json=subscriptionStatus,proto3" json:"subscription_status,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
 
 func (x *GetUsageResponse) Reset() {
 	*x = GetUsageResponse{}
-	mi := &file_billing_proto_msgTypes[5]
+	mi := &file_billing_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -369,7 +519,7 @@ func (x *GetUsageResponse) String() string {
 func (*GetUsageResponse) ProtoMessage() {}
 
 func (x *GetUsageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[5]
+	mi := &file_billing_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -382,7 +532,7 @@ func (x *GetUsageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsageResponse.ProtoReflect.Descriptor instead.
 func (*GetUsageResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{5}
+	return file_billing_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetUsageResponse) GetWorkspaceId() string {
@@ -399,53 +549,11 @@ func (x *GetUsageResponse) GetEnvironmentId() string {
 	return ""
 }
 
-func (x *GetUsageResponse) GetEmailCount() int32 {
+func (x *GetUsageResponse) GetUsage() []*ChannelUsage {
 	if x != nil {
-		return x.EmailCount
+		return x.Usage
 	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetSmsCount() int32 {
-	if x != nil {
-		return x.SmsCount
-	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetPushCount() int32 {
-	if x != nil {
-		return x.PushCount
-	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetSlackCount() int32 {
-	if x != nil {
-		return x.SlackCount
-	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetWhatsappCount() int32 {
-	if x != nil {
-		return x.WhatsappCount
-	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetWebhookCount() int32 {
-	if x != nil {
-		return x.WebhookCount
-	}
-	return 0
-}
-
-func (x *GetUsageResponse) GetInAppCount() int32 {
-	if x != nil {
-		return x.InAppCount
-	}
-	return 0
+	return nil
 }
 
 func (x *GetUsageResponse) GetPeriodStart() string {
@@ -482,7 +590,7 @@ type CreateSubscriptionRequest struct {
 
 func (x *CreateSubscriptionRequest) Reset() {
 	*x = CreateSubscriptionRequest{}
-	mi := &file_billing_proto_msgTypes[6]
+	mi := &file_billing_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -494,7 +602,7 @@ func (x *CreateSubscriptionRequest) String() string {
 func (*CreateSubscriptionRequest) ProtoMessage() {}
 
 func (x *CreateSubscriptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[6]
+	mi := &file_billing_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -507,7 +615,7 @@ func (x *CreateSubscriptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSubscriptionRequest.ProtoReflect.Descriptor instead.
 func (*CreateSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{6}
+	return file_billing_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CreateSubscriptionRequest) GetWorkspaceId() string {
@@ -555,7 +663,7 @@ type CreateSubscriptionResponse struct {
 
 func (x *CreateSubscriptionResponse) Reset() {
 	*x = CreateSubscriptionResponse{}
-	mi := &file_billing_proto_msgTypes[7]
+	mi := &file_billing_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -567,7 +675,7 @@ func (x *CreateSubscriptionResponse) String() string {
 func (*CreateSubscriptionResponse) ProtoMessage() {}
 
 func (x *CreateSubscriptionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[7]
+	mi := &file_billing_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -580,7 +688,7 @@ func (x *CreateSubscriptionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSubscriptionResponse.ProtoReflect.Descriptor instead.
 func (*CreateSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{7}
+	return file_billing_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *CreateSubscriptionResponse) GetSubscriptionId() string {
@@ -607,7 +715,7 @@ type CancelSubscriptionRequest struct {
 
 func (x *CancelSubscriptionRequest) Reset() {
 	*x = CancelSubscriptionRequest{}
-	mi := &file_billing_proto_msgTypes[8]
+	mi := &file_billing_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -619,7 +727,7 @@ func (x *CancelSubscriptionRequest) String() string {
 func (*CancelSubscriptionRequest) ProtoMessage() {}
 
 func (x *CancelSubscriptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[8]
+	mi := &file_billing_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -632,7 +740,7 @@ func (x *CancelSubscriptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CancelSubscriptionRequest.ProtoReflect.Descriptor instead.
 func (*CancelSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{8}
+	return file_billing_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CancelSubscriptionRequest) GetWorkspaceId() string {
@@ -658,7 +766,7 @@ type CancelSubscriptionResponse struct {
 
 func (x *CancelSubscriptionResponse) Reset() {
 	*x = CancelSubscriptionResponse{}
-	mi := &file_billing_proto_msgTypes[9]
+	mi := &file_billing_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -670,7 +778,7 @@ func (x *CancelSubscriptionResponse) String() string {
 func (*CancelSubscriptionResponse) ProtoMessage() {}
 
 func (x *CancelSubscriptionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[9]
+	mi := &file_billing_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -683,7 +791,7 @@ func (x *CancelSubscriptionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CancelSubscriptionResponse.ProtoReflect.Descriptor instead.
 func (*CancelSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{9}
+	return file_billing_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CancelSubscriptionResponse) GetSuccess() bool {
@@ -702,7 +810,7 @@ type GetSubscriptionRequest struct {
 
 func (x *GetSubscriptionRequest) Reset() {
 	*x = GetSubscriptionRequest{}
-	mi := &file_billing_proto_msgTypes[10]
+	mi := &file_billing_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -714,7 +822,7 @@ func (x *GetSubscriptionRequest) String() string {
 func (*GetSubscriptionRequest) ProtoMessage() {}
 
 func (x *GetSubscriptionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[10]
+	mi := &file_billing_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -727,7 +835,7 @@ func (x *GetSubscriptionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSubscriptionRequest.ProtoReflect.Descriptor instead.
 func (*GetSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{10}
+	return file_billing_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetSubscriptionRequest) GetWorkspaceId() string {
@@ -750,7 +858,7 @@ type GetSubscriptionResponse struct {
 
 func (x *GetSubscriptionResponse) Reset() {
 	*x = GetSubscriptionResponse{}
-	mi := &file_billing_proto_msgTypes[11]
+	mi := &file_billing_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -762,7 +870,7 @@ func (x *GetSubscriptionResponse) String() string {
 func (*GetSubscriptionResponse) ProtoMessage() {}
 
 func (x *GetSubscriptionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_proto_msgTypes[11]
+	mi := &file_billing_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -775,7 +883,7 @@ func (x *GetSubscriptionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSubscriptionResponse.ProtoReflect.Descriptor instead.
 func (*GetSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return file_billing_proto_rawDescGZIP(), []int{11}
+	return file_billing_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetSubscriptionResponse) GetSubscriptionId() string {
@@ -818,7 +926,13 @@ var File_billing_proto protoreflect.FileDescriptor
 const file_billing_proto_rawDesc = "" +
 	"\n" +
 	"\rbilling.proto\x12\n" +
-	"billing.v1\"w\n" +
+	"billing.v1\"\x81\x01\n" +
+	"\x1cCreateCheckoutSessionRequest\x12!\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x17\n" +
+	"\aplan_id\x18\x02 \x01(\tR\x06planId\x12%\n" +
+	"\x0ecustomer_email\x18\x03 \x01(\tR\rcustomerEmail\"B\n" +
+	"\x1dCreateCheckoutSessionResponse\x12!\n" +
+	"\fcheckout_url\x18\x01 \x01(\tR\vcheckoutUrl\"w\n" +
 	"\x11CheckLimitRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12%\n" +
 	"\x0eenvironment_id\x18\x02 \x01(\tR\renvironmentId\x12\x18\n" +
@@ -840,26 +954,18 @@ const file_billing_proto_rawDesc = "" +
 	"\facknowledged\x18\x01 \x01(\bR\facknowledged\"[\n" +
 	"\x0fGetUsageRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12%\n" +
-	"\x0eenvironment_id\x18\x02 \x01(\tR\renvironmentId\"\xbb\x03\n" +
+	"\x0eenvironment_id\x18\x02 \x01(\tR\renvironmentId\"V\n" +
+	"\fChannelUsage\x12!\n" +
+	"\fchannel_name\x18\x01 \x01(\tR\vchannelName\x12#\n" +
+	"\rcurrent_usage\x18\x02 \x01(\x03R\fcurrentUsage\"\xff\x01\n" +
 	"\x10GetUsageResponse\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12%\n" +
-	"\x0eenvironment_id\x18\x02 \x01(\tR\renvironmentId\x12\x1f\n" +
-	"\vemail_count\x18\x03 \x01(\x05R\n" +
-	"emailCount\x12\x1b\n" +
-	"\tsms_count\x18\x04 \x01(\x05R\bsmsCount\x12\x1d\n" +
+	"\x0eenvironment_id\x18\x02 \x01(\tR\renvironmentId\x12.\n" +
+	"\x05usage\x18\x03 \x03(\v2\x18.billing.v1.ChannelUsageR\x05usage\x12!\n" +
+	"\fperiod_start\x18\x04 \x01(\tR\vperiodStart\x12\x1d\n" +
 	"\n" +
-	"push_count\x18\x05 \x01(\x05R\tpushCount\x12\x1f\n" +
-	"\vslack_count\x18\x06 \x01(\x05R\n" +
-	"slackCount\x12%\n" +
-	"\x0ewhatsapp_count\x18\a \x01(\x05R\rwhatsappCount\x12#\n" +
-	"\rwebhook_count\x18\b \x01(\x05R\fwebhookCount\x12 \n" +
-	"\fin_app_count\x18\t \x01(\x05R\n" +
-	"inAppCount\x12!\n" +
-	"\fperiod_start\x18\n" +
-	" \x01(\tR\vperiodStart\x12\x1d\n" +
-	"\n" +
-	"period_end\x18\v \x01(\tR\tperiodEnd\x12/\n" +
-	"\x13subscription_status\x18\f \x01(\tR\x12subscriptionStatus\"\xee\x01\n" +
+	"period_end\x18\x05 \x01(\tR\tperiodEnd\x12/\n" +
+	"\x13subscription_status\x18\x06 \x01(\tR\x12subscriptionStatus\"\xee\x01\n" +
 	"\x19CreateSubscriptionRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x17\n" +
 	"\aplan_id\x18\x02 \x01(\tR\x06planId\x12)\n" +
@@ -881,7 +987,7 @@ const file_billing_proto_rawDesc = "" +
 	"\tplan_name\x18\x02 \x01(\tR\bplanName\x12\x16\n" +
 	"\x06status\x18\x03 \x01(\tR\x06status\x12,\n" +
 	"\x12current_period_end\x18\x04 \x01(\tR\x10currentPeriodEnd\x12)\n" +
-	"\x10payment_provider\x18\x05 \x01(\tR\x0fpaymentProvider2\x9a\x04\n" +
+	"\x10payment_provider\x18\x05 \x01(\tR\x0fpaymentProvider2\x88\x05\n" +
 	"\x0eBillingService\x12K\n" +
 	"\n" +
 	"CheckLimit\x12\x1d.billing.v1.CheckLimitRequest\x1a\x1e.billing.v1.CheckLimitResponse\x12N\n" +
@@ -889,7 +995,8 @@ const file_billing_proto_rawDesc = "" +
 	"\bGetUsage\x12\x1b.billing.v1.GetUsageRequest\x1a\x1c.billing.v1.GetUsageResponse\x12c\n" +
 	"\x12CreateSubscription\x12%.billing.v1.CreateSubscriptionRequest\x1a&.billing.v1.CreateSubscriptionResponse\x12c\n" +
 	"\x12CancelSubscription\x12%.billing.v1.CancelSubscriptionRequest\x1a&.billing.v1.CancelSubscriptionResponse\x12Z\n" +
-	"\x0fGetSubscription\x12\".billing.v1.GetSubscriptionRequest\x1a#.billing.v1.GetSubscriptionResponseB>Z<github.com/NIROOZbx/billing-service/gen/billing/v1;billingv1b\x06proto3"
+	"\x0fGetSubscription\x12\".billing.v1.GetSubscriptionRequest\x1a#.billing.v1.GetSubscriptionResponse\x12l\n" +
+	"\x15CreateCheckoutSession\x12(.billing.v1.CreateCheckoutSessionRequest\x1a).billing.v1.CreateCheckoutSessionResponseB>Z<github.com/NIROOZbx/billing-service/gen/billing/v1;billingv1b\x06proto3"
 
 var (
 	file_billing_proto_rawDescOnce sync.Once
@@ -903,39 +1010,45 @@ func file_billing_proto_rawDescGZIP() []byte {
 	return file_billing_proto_rawDescData
 }
 
-var file_billing_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_billing_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_billing_proto_goTypes = []any{
-	(*CheckLimitRequest)(nil),          // 0: billing.v1.CheckLimitRequest
-	(*CheckLimitResponse)(nil),         // 1: billing.v1.CheckLimitResponse
-	(*RecordUsageRequest)(nil),         // 2: billing.v1.RecordUsageRequest
-	(*RecordUsageResponse)(nil),        // 3: billing.v1.RecordUsageResponse
-	(*GetUsageRequest)(nil),            // 4: billing.v1.GetUsageRequest
-	(*GetUsageResponse)(nil),           // 5: billing.v1.GetUsageResponse
-	(*CreateSubscriptionRequest)(nil),  // 6: billing.v1.CreateSubscriptionRequest
-	(*CreateSubscriptionResponse)(nil), // 7: billing.v1.CreateSubscriptionResponse
-	(*CancelSubscriptionRequest)(nil),  // 8: billing.v1.CancelSubscriptionRequest
-	(*CancelSubscriptionResponse)(nil), // 9: billing.v1.CancelSubscriptionResponse
-	(*GetSubscriptionRequest)(nil),     // 10: billing.v1.GetSubscriptionRequest
-	(*GetSubscriptionResponse)(nil),    // 11: billing.v1.GetSubscriptionResponse
+	(*CreateCheckoutSessionRequest)(nil),  // 0: billing.v1.CreateCheckoutSessionRequest
+	(*CreateCheckoutSessionResponse)(nil), // 1: billing.v1.CreateCheckoutSessionResponse
+	(*CheckLimitRequest)(nil),             // 2: billing.v1.CheckLimitRequest
+	(*CheckLimitResponse)(nil),            // 3: billing.v1.CheckLimitResponse
+	(*RecordUsageRequest)(nil),            // 4: billing.v1.RecordUsageRequest
+	(*RecordUsageResponse)(nil),           // 5: billing.v1.RecordUsageResponse
+	(*GetUsageRequest)(nil),               // 6: billing.v1.GetUsageRequest
+	(*ChannelUsage)(nil),                  // 7: billing.v1.ChannelUsage
+	(*GetUsageResponse)(nil),              // 8: billing.v1.GetUsageResponse
+	(*CreateSubscriptionRequest)(nil),     // 9: billing.v1.CreateSubscriptionRequest
+	(*CreateSubscriptionResponse)(nil),    // 10: billing.v1.CreateSubscriptionResponse
+	(*CancelSubscriptionRequest)(nil),     // 11: billing.v1.CancelSubscriptionRequest
+	(*CancelSubscriptionResponse)(nil),    // 12: billing.v1.CancelSubscriptionResponse
+	(*GetSubscriptionRequest)(nil),        // 13: billing.v1.GetSubscriptionRequest
+	(*GetSubscriptionResponse)(nil),       // 14: billing.v1.GetSubscriptionResponse
 }
 var file_billing_proto_depIdxs = []int32{
-	0,  // 0: billing.v1.BillingService.CheckLimit:input_type -> billing.v1.CheckLimitRequest
-	2,  // 1: billing.v1.BillingService.RecordUsage:input_type -> billing.v1.RecordUsageRequest
-	4,  // 2: billing.v1.BillingService.GetUsage:input_type -> billing.v1.GetUsageRequest
-	6,  // 3: billing.v1.BillingService.CreateSubscription:input_type -> billing.v1.CreateSubscriptionRequest
-	8,  // 4: billing.v1.BillingService.CancelSubscription:input_type -> billing.v1.CancelSubscriptionRequest
-	10, // 5: billing.v1.BillingService.GetSubscription:input_type -> billing.v1.GetSubscriptionRequest
-	1,  // 6: billing.v1.BillingService.CheckLimit:output_type -> billing.v1.CheckLimitResponse
-	3,  // 7: billing.v1.BillingService.RecordUsage:output_type -> billing.v1.RecordUsageResponse
-	5,  // 8: billing.v1.BillingService.GetUsage:output_type -> billing.v1.GetUsageResponse
-	7,  // 9: billing.v1.BillingService.CreateSubscription:output_type -> billing.v1.CreateSubscriptionResponse
-	9,  // 10: billing.v1.BillingService.CancelSubscription:output_type -> billing.v1.CancelSubscriptionResponse
-	11, // 11: billing.v1.BillingService.GetSubscription:output_type -> billing.v1.GetSubscriptionResponse
-	6,  // [6:12] is the sub-list for method output_type
-	0,  // [0:6] is the sub-list for method input_type
-	0,  // [0:0] is the sub-list for extension type_name
-	0,  // [0:0] is the sub-list for extension extendee
-	0,  // [0:0] is the sub-list for field type_name
+	7,  // 0: billing.v1.GetUsageResponse.usage:type_name -> billing.v1.ChannelUsage
+	2,  // 1: billing.v1.BillingService.CheckLimit:input_type -> billing.v1.CheckLimitRequest
+	4,  // 2: billing.v1.BillingService.RecordUsage:input_type -> billing.v1.RecordUsageRequest
+	6,  // 3: billing.v1.BillingService.GetUsage:input_type -> billing.v1.GetUsageRequest
+	9,  // 4: billing.v1.BillingService.CreateSubscription:input_type -> billing.v1.CreateSubscriptionRequest
+	11, // 5: billing.v1.BillingService.CancelSubscription:input_type -> billing.v1.CancelSubscriptionRequest
+	13, // 6: billing.v1.BillingService.GetSubscription:input_type -> billing.v1.GetSubscriptionRequest
+	0,  // 7: billing.v1.BillingService.CreateCheckoutSession:input_type -> billing.v1.CreateCheckoutSessionRequest
+	3,  // 8: billing.v1.BillingService.CheckLimit:output_type -> billing.v1.CheckLimitResponse
+	5,  // 9: billing.v1.BillingService.RecordUsage:output_type -> billing.v1.RecordUsageResponse
+	8,  // 10: billing.v1.BillingService.GetUsage:output_type -> billing.v1.GetUsageResponse
+	10, // 11: billing.v1.BillingService.CreateSubscription:output_type -> billing.v1.CreateSubscriptionResponse
+	12, // 12: billing.v1.BillingService.CancelSubscription:output_type -> billing.v1.CancelSubscriptionResponse
+	14, // 13: billing.v1.BillingService.GetSubscription:output_type -> billing.v1.GetSubscriptionResponse
+	1,  // 14: billing.v1.BillingService.CreateCheckoutSession:output_type -> billing.v1.CreateCheckoutSessionResponse
+	8,  // [8:15] is the sub-list for method output_type
+	1,  // [1:8] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_billing_proto_init() }
@@ -949,7 +1062,7 @@ func file_billing_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_billing_proto_rawDesc), len(file_billing_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
