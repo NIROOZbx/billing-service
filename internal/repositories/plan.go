@@ -52,5 +52,6 @@ func mapToPlanDomain(row *sqlc.Plan) *domain.Plan {
 		WebhookLimitMonth:  row.WebhookLimitMonth,
 		InAppLimitMonth:    row.InAppLimitMonth,
 		IsActive:           row.IsActive,
+		ExternalPriceID: row.ExternalPriceID.String,
 	}
 }

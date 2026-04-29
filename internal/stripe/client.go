@@ -10,6 +10,7 @@ import (
 	"github.com/NIROOZbx/billing-service/pkg/helpers"
 	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
+	"github.com/rs/zerolog"
 	stripe "github.com/stripe/stripe-go/v85"
 	"github.com/stripe/stripe-go/v85/checkout/session"
 	"github.com/stripe/stripe-go/v85/subscription"
@@ -18,10 +19,14 @@ import (
 
 type StripeProvider struct {
 	webhookSecret string
+	log zerolog.Logger
 }
 
-func NewStripeProvider(secret string) *StripeProvider {
-	return &StripeProvider{webhookSecret: secret}
+func NewStripeProvider(secret string, log zerolog.Logger) *StripeProvider {
+	return &StripeProvider{
+		webhookSecret: secret,
+		log:           log.With().Str("component", "stripe_provider").Logger(),
+	}
 }
 
 func (p *StripeProvider) ParseEvent(body []byte, header http.Header) (*domain.BillingEvent, error) {
@@ -29,8 +34,11 @@ func (p *StripeProvider) ParseEvent(body []byte, header http.Header) (*domain.Bi
 
 	event, err := webhook.ConstructEvent(body, signature, p.webhookSecret)
 	if err != nil {
+		p.log.Error().Err(err).Msg("failed to construct stripe event")
 		return nil, fmt.Errorf("invalid stripe signature: %w", err)
 	}
+
+	p.log.Info().Str("event_type", string(event.Type)).Str("event_id", event.ID).Msg("stripe event received")
 
 	switch event.Type {
 	case "checkout.session.completed":
@@ -67,10 +75,44 @@ func (p *StripeProvider) CreateCheckoutSession(params domain.CheckoutSessionPara
 
 	session, err := session.New(param)
 	if err != nil {
+		p.log.Error().Err(err).
+			Str("workspace_id", params.WorkspaceID).
+			Str("plan_id", params.PlanID).
+			Msg("failed to create stripe checkout session")
 		return "", fmt.Errorf("could not create stripe checkout session: %w", err)
 	}
 
+	p.log.Info().
+		Str("session_id", session.ID).
+		Str("workspace_id", params.WorkspaceID).
+		Msg("stripe checkout session created")
+
 	return session.URL, nil
+}
+
+func (p *StripeProvider) GetCheckoutSession(sessionID string) (*domain.CheckoutSessionDetails, error) {
+	sess, err := session.Get(sessionID, nil)
+	if err != nil {
+		return nil, fmt.Errorf("fetch checkout session: %w", err)
+	}
+
+	details := &domain.CheckoutSessionDetails{
+		ID:            sess.ID,
+		CustomerEmail: sess.CustomerEmail,
+		AmountTotal:   sess.AmountTotal,
+		Currency:      string(sess.Currency),
+		PaymentStatus: string(sess.PaymentStatus),
+	}
+
+	if sess.Subscription != nil {
+		details.SubscriptionID = sess.Subscription.ID
+	}
+
+	if sess.Metadata != nil {
+		details.PlanName = sess.Metadata["plan_id"]
+	}
+
+	return details, nil
 }
 
 func (p *StripeProvider) handleCheckoutSession(event stripe.Event) (*domain.BillingEvent, error) {
@@ -86,11 +128,16 @@ func (p *StripeProvider) handleCheckoutSession(event stripe.Event) (*domain.Bill
 	); err != nil {
 		return nil, fmt.Errorf("invalid metadata variables: %w", err)
 	}
+	
 
 	stripeSub, err := subscription.Get(session.Subscription.ID, nil)
 	if err != nil {
 		return nil, fmt.Errorf("fetch stripe subscription: %w", err)
 	}
+	p.log.Info().
+    Int64("period_start", stripeSub.Items.Data[0].CurrentPeriodStart).
+    Int64("period_end", stripeSub.Items.Data[0].CurrentPeriodEnd).
+		Msg("stripe subscription period dates")
 
 	return &domain.BillingEvent{
 		Type: domain.EventSubscriptionCreated,
@@ -118,6 +165,11 @@ func (p *StripeProvider) handleSubscriptionUpdated(event stripe.Event) (*domain.
 	if len(sub.Items.Data) == 0 {
 		return nil, fmt.Errorf("subscription has no items: %s", sub.ID)
 	}
+
+	p.log.Info().
+		Str("subscription_id", sub.ID).
+		Str("status", string(sub.Status)).
+		Msg("stripe subscription updated event handled")
 
 	return &domain.BillingEvent{
 		Type: domain.EventSubscriptionUpdated,

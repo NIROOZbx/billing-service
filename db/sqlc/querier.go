@@ -20,6 +20,7 @@ type Querier interface {
 	GetPlanByID(ctx context.Context, id pgtype.UUID) (Plan, error)
 	GetPlanByName(ctx context.Context, name string) (Plan, error)
 	GetProviderUsageByWorkspace(ctx context.Context, arg GetProviderUsageByWorkspaceParams) ([]BillingProviderUsage, error)
+	GetSubscriptionByExternalID(ctx context.Context, externalSubscriptionID pgtype.Text) (BillingSubscription, error)
 	GetUsageByChannel(ctx context.Context, arg GetUsageByChannelParams) (BillingUsage, error)
 	GetUsageByWorkspace(ctx context.Context, arg GetUsageByWorkspaceParams) ([]BillingUsage, error)
 	MarkExpiryEmailSent(ctx context.Context, id pgtype.UUID) error

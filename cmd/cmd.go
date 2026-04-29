@@ -18,11 +18,9 @@ import (
 
 func Run(a *app.App, addr string) error {
 
-
 	signals := []os.Signal{os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGHUP}
 	ctx, cancel := signal.NotifyContext(context.Background(), signals...)
-		defer cancel()
-		
+	defer cancel()
 
 	grpcServer, lis, err := setupGRPCServer(a, addr)
 	if err != nil {
@@ -84,12 +82,12 @@ func setupGRPCServer(a *app.App, addr string) (*grpc.Server, net.Listener, error
 }
 
 func setupHTTPServer(a *app.App) *http.Server {
-    mux := http.NewServeMux()
-    mux.HandleFunc("/webhooks/stripe", a.WebHookHandler.Handle)
-    return &http.Server{
-        Addr:    ":" + a.Config.App.HttpPort,
-        Handler: mux,
-    }
+	mux := http.NewServeMux()
+	mux.HandleFunc("/webhooks/stripe", a.WebHookHandler.Handle)
+	return &http.Server{
+		Addr:    ":" + a.Config.App.HttpPort,
+		Handler: mux,
+	}
 }
 
 func gracefulShutdown(a *app.App, grpcServer *grpc.Server, httpServer *http.Server) error {
@@ -102,7 +100,6 @@ func gracefulShutdown(a *app.App, grpcServer *grpc.Server, httpServer *http.Serv
 		a.Logger.Error().Err(err).Msg("HTTP shutdown error")
 	}
 	a.Logger.Info().Msg("HTTP server stopped gracefully")
-
 
 	grpcStopped := make(chan struct{})
 	go func() {

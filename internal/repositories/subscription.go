@@ -2,11 +2,11 @@ package repositories
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/NIROOZbx/billing-service/db/sqlc"
 	"github.com/NIROOZbx/billing-service/internal/domain"
 	"github.com/NIROOZbx/billing-service/pkg/apperrors"
-	"github.com/NIROOZbx/billing-service/pkg/constants"
 	"github.com/NIROOZbx/billing-service/pkg/helpers"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
@@ -36,7 +36,6 @@ func (s *subscriptionRepository) Create(ctx context.Context, input domain.Create
 		PaymentProvider:        input.PaymentProvider,
 		ExternalSubscriptionID: helpers.ToPgText(input.ExternalSubscriptionID),
 		ExternalCustomerID:     helpers.ToPgText(input.ExternalCustomerID),
-		Status:                 constants.SubscriptionStatusActive,
 	})
 	if err != nil {
 		return nil, apperrors.MapDBError(err)
@@ -76,6 +75,7 @@ func (s *subscriptionRepository) RenewExpiredFreeSubscription(ctx context.Contex
 
 func (s *subscriptionRepository) SyncSubscription(ctx context.Context, input domain.SyncSubscriptionInput) error {
 
+	fmt.Println("sync subscriprion called",input)
 	var pgCancelledAt pgtype.Timestamptz
 	if input.CancelledAt != nil && !input.CancelledAt.IsZero() {
 		pgCancelledAt = helpers.ToPgTimestamp(*input.CancelledAt)
@@ -109,6 +109,14 @@ func (s *subscriptionRepository) GetExpiringSubscription(ctx context.Context, li
 
 func (s *subscriptionRepository) MarkExpiryEmailSent(ctx context.Context, id uuid.UUID) error {
 	return s.queries.MarkExpiryEmailSent(ctx, helpers.ToPgUUID(id))
+}
+
+func (s *subscriptionRepository) GetByExternalID(ctx context.Context, externalID string) (*domain.Subscription, error) {
+	row, err := s.queries.GetSubscriptionByExternalID(ctx, helpers.ToPgText(externalID))
+	if err != nil {
+		return nil, apperrors.MapDBError(err)
+	}
+	return mapToDomain(&row), nil
 }
 
 func mapToDomain(row *sqlc.BillingSubscription) *domain.Subscription {

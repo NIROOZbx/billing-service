@@ -77,8 +77,8 @@ func LoadConfig() (*Config, error) {
 	v.BindEnv("database.name", "DB_NAME")
 	v.BindEnv("stripe.api_key", "STRIPE_API_KEY")
 	v.BindEnv("stripe.webhook_secret", "STRIPE_WEBHOOK_SECRET")
-	v.BindEnv("success_url","STRIPE_SUCCESS_URL")
-	v.BindEnv("cancel_url","STRIPE_CANCEL_URL")
+	v.BindEnv("stripe.success_url", "STRIPE_SUCCESS_URL")
+	v.BindEnv("stripe.cancel_url", "STRIPE_CANCEL_URL")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file: %w", err)

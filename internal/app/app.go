@@ -16,6 +16,7 @@ import (
 	"github.com/NIROOZbx/billing-service/pkg/logger"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
+	stripego "github.com/stripe/stripe-go/v85"
 )
 
 type App struct {
@@ -44,7 +45,8 @@ func StartApp(cfg *config.Config) (*App, error) {
 	// PROVIDER SETUP
 	// Initializes the Stripe client with the secret
 	// ==========================================
-	stripeProvider := stripe.NewStripeProvider(cfg.Stripe.WebhookSecret)
+	stripego.Key = cfg.Stripe.ApiKey
+	stripeProvider := stripe.NewStripeProvider(cfg.Stripe.WebhookSecret, syslog)
 
 	// ==========================================
 	// HANDLER WIRING

@@ -183,6 +183,11 @@ func (s *BillingServer) CancelSubscription(ctx context.Context, req *billingv1.C
 		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	s.logger.Info().
+		Str("workspace_id", workspaceID.String()).
+		Str("subscription_id", subscriptionID.String()).
+		Msg("gRPC: CancelSubscription requested")
+
 	err := s.subscriptionSvc.Cancel(ctx, workspaceID, subscriptionID)
 	if err != nil {
 		return nil, mapGRPCError(err)
@@ -203,10 +208,16 @@ func (s *BillingServer) GetSubscription(ctx context.Context, req *billingv1.GetS
 		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	s.logger.Info().
+		Str("workspace_id", workspaceID.String()).
+		Msg("gRPC: GetSubscription requested")
+
 	subscription, err := s.subscriptionSvc.GetActiveSubscription(ctx, workspaceID)
 	if err != nil {
+		s.logger.Info().Interface("data",subscription).Msg("subsction got ")
 		return nil, mapGRPCError(err)
 	}
+
 
 	plan, err := s.planSvc.GetPlanByID(ctx, subscription.PlanID)
 	if err != nil {
@@ -230,6 +241,11 @@ func (s *BillingServer) GetUsage(ctx context.Context, req *billingv1.GetUsageReq
 	); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
+	s.logger.Info().
+		Str("workspace_id", workspaceID.String()).
+		Str("environment_id", environmentID.String()).
+		Msg("gRPC: GetUsage requested")
 
 	usageList, err := s.usageSvc.GetUsageSummary(ctx, workspaceID, environmentID)
 	if err != nil {
@@ -272,6 +288,13 @@ func (s *BillingServer) CreateCheckoutSession(ctx context.Context, req *billingv
 	); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
+	s.logger.Info().
+		Str("workspace_id", workspaceID.String()).
+		Str("plan_id", planID.String()).
+		Str("customer_email", req.CustomerEmail).
+		Msg("gRPC: CreateCheckoutSession requested")
+
 	url, err := s.subscriptionSvc.CreateCheckoutSession(ctx, workspaceID, planID,req.CustomerEmail)
 	if err != nil {
 		return nil, mapGRPCError(err)
@@ -282,6 +305,26 @@ func (s *BillingServer) CreateCheckoutSession(ctx context.Context, req *billingv
 	}, nil
 }
 
+func(s *BillingServer)GetCheckoutSession(ctx context.Context,req *billingv1.CreateGetSessionRequest)(*billingv1.GetSessionResponse,error){
+	s.logger.Info().
+		Str("session_id", req.SessionId).
+		Msg("gRPC: GetCheckoutSession requested")
+
+	details, err := s.subscriptionSvc.GetCheckoutSession(ctx, req.SessionId)
+	if err != nil {
+		return nil, mapGRPCError(err)
+	}
+
+	return &billingv1.GetSessionResponse{
+		Id:             details.ID,
+		CustomerEmail:  details.CustomerEmail,
+		AmountTotal:    details.AmountTotal,
+		Currency:       details.Currency,
+		PaymentStatus:  details.PaymentStatus,
+		PlanName:       details.PlanName,
+		SubscriptionId: details.SubscriptionID,
+	}, nil
+}
 
 
 // ------ Helpers ------

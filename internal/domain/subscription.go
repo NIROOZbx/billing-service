@@ -42,6 +42,16 @@ type SyncSubscriptionInput struct {
 	CancelledAt            *time.Time
 }
 
+type CheckoutSessionDetails struct {
+	ID             string
+	CustomerEmail  string
+	AmountTotal    int64
+	Currency       string
+	PaymentStatus  string
+	PlanName       string
+	SubscriptionID string
+}
+
 // --- Interfaces ---
 
 type SubscriptionRepository interface {
@@ -53,6 +63,7 @@ type SubscriptionRepository interface {
 	SyncSubscription(ctx context.Context, input SyncSubscriptionInput) error
 	GetExpiringSubscription(ctx context.Context, limit int) ([]*Subscription, error)
 	MarkExpiryEmailSent(ctx context.Context, id uuid.UUID) error
+	GetByExternalID(ctx context.Context, externalID string) (*Subscription, error)
 }
 
 type SubscriptionService interface {
@@ -61,4 +72,6 @@ type SubscriptionService interface {
 	Cancel(ctx context.Context, workspaceID, subscriptionID uuid.UUID) error
 	SyncSubscription(ctx context.Context, input SyncSubscriptionInput) error
 	CreateCheckoutSession(ctx context.Context, workspaceID, planID uuid.UUID, customerEmail string) (string, error)
+	GetCheckoutSession(ctx context.Context, sessionID string) (*CheckoutSessionDetails, error)
+	GetSubscriptionByExternalID(ctx context.Context, externalID string) (*Subscription, error)
 }

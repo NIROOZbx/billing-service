@@ -25,6 +25,9 @@ func (s *subscriptionService) CreateCheckoutSession(ctx context.Context, workspa
 	if err != nil {
 		return "", fmt.Errorf("fetch plan: %w", err)
 	}
+	fmt.Println("plan details",plan.ExternalPriceID)
+
+
 
 	if plan.ExternalPriceID == "" {
 		return "", fmt.Errorf("plan %s has no stripe price id configured", plan.Name)
@@ -38,6 +41,10 @@ func (s *subscriptionService) CreateCheckoutSession(ctx context.Context, workspa
 		CancelURL:     s.config.Stripe.CancelURL,
 		CustomerEmail: customerEmail,
 	})
+}
+
+func (s *subscriptionService) GetCheckoutSession(ctx context.Context, sessionID string) (*domain.CheckoutSessionDetails, error) {
+	return s.provider.GetCheckoutSession(sessionID)
 }
 
 func (s *subscriptionService) GetActiveSubscription(ctx context.Context, workspaceID uuid.UUID) (*domain.Subscription, error) {
@@ -57,4 +64,8 @@ func (s *subscriptionService) Cancel(ctx context.Context, workspaceID, subscript
 
 func (s *subscriptionService) SyncSubscription(ctx context.Context, input domain.SyncSubscriptionInput) error {
 	return s.repo.SyncSubscription(ctx, input)
+}
+
+func (s *subscriptionService) GetSubscriptionByExternalID(ctx context.Context, externalID string) (*domain.Subscription, error) {
+	return s.repo.GetByExternalID(ctx, externalID)
 }

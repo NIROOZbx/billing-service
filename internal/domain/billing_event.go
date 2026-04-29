@@ -44,4 +44,5 @@ type CheckoutSessionParams struct {
 type BillingProvider interface {
 	ParseEvent(body []byte, header http.Header) (*BillingEvent, error)
 	CreateCheckoutSession(params CheckoutSessionParams) (string, error)
+	GetCheckoutSession(sessionID string) (*CheckoutSessionDetails, error)
 }

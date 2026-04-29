@@ -26,6 +26,7 @@ const (
 	BillingService_CancelSubscription_FullMethodName    = "/billing.v1.BillingService/CancelSubscription"
 	BillingService_GetSubscription_FullMethodName       = "/billing.v1.BillingService/GetSubscription"
 	BillingService_CreateCheckoutSession_FullMethodName = "/billing.v1.BillingService/CreateCheckoutSession"
+	BillingService_GetCheckoutSession_FullMethodName    = "/billing.v1.BillingService/GetCheckoutSession"
 )
 
 // BillingServiceClient is the client API for BillingService service.
@@ -39,6 +40,7 @@ type BillingServiceClient interface {
 	CancelSubscription(ctx context.Context, in *CancelSubscriptionRequest, opts ...grpc.CallOption) (*CancelSubscriptionResponse, error)
 	GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error)
 	CreateCheckoutSession(ctx context.Context, in *CreateCheckoutSessionRequest, opts ...grpc.CallOption) (*CreateCheckoutSessionResponse, error)
+	GetCheckoutSession(ctx context.Context, in *CreateGetSessionRequest, opts ...grpc.CallOption) (*GetSessionResponse, error)
 }
 
 type billingServiceClient struct {
@@ -119,6 +121,16 @@ func (c *billingServiceClient) CreateCheckoutSession(ctx context.Context, in *Cr
 	return out, nil
 }
 
+func (c *billingServiceClient) GetCheckoutSession(ctx context.Context, in *CreateGetSessionRequest, opts ...grpc.CallOption) (*GetSessionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetSessionResponse)
+	err := c.cc.Invoke(ctx, BillingService_GetCheckoutSession_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BillingServiceServer is the server API for BillingService service.
 // All implementations must embed UnimplementedBillingServiceServer
 // for forward compatibility.
@@ -130,6 +142,7 @@ type BillingServiceServer interface {
 	CancelSubscription(context.Context, *CancelSubscriptionRequest) (*CancelSubscriptionResponse, error)
 	GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error)
 	CreateCheckoutSession(context.Context, *CreateCheckoutSessionRequest) (*CreateCheckoutSessionResponse, error)
+	GetCheckoutSession(context.Context, *CreateGetSessionRequest) (*GetSessionResponse, error)
 	mustEmbedUnimplementedBillingServiceServer()
 }
 
@@ -160,6 +173,9 @@ func (UnimplementedBillingServiceServer) GetSubscription(context.Context, *GetSu
 }
 func (UnimplementedBillingServiceServer) CreateCheckoutSession(context.Context, *CreateCheckoutSessionRequest) (*CreateCheckoutSessionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateCheckoutSession not implemented")
+}
+func (UnimplementedBillingServiceServer) GetCheckoutSession(context.Context, *CreateGetSessionRequest) (*GetSessionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCheckoutSession not implemented")
 }
 func (UnimplementedBillingServiceServer) mustEmbedUnimplementedBillingServiceServer() {}
 func (UnimplementedBillingServiceServer) testEmbeddedByValue()                        {}
@@ -308,6 +324,24 @@ func _BillingService_CreateCheckoutSession_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BillingService_GetCheckoutSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGetSessionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BillingServiceServer).GetCheckoutSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BillingService_GetCheckoutSession_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BillingServiceServer).GetCheckoutSession(ctx, req.(*CreateGetSessionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BillingService_ServiceDesc is the grpc.ServiceDesc for BillingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +376,10 @@ var BillingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateCheckoutSession",
 			Handler:    _BillingService_CreateCheckoutSession_Handler,
+		},
+		{
+			MethodName: "GetCheckoutSession",
+			Handler:    _BillingService_GetCheckoutSession_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -120,6 +120,14 @@ func (h *WebhookHandler) handleSubscriptionCancelled(ctx context.Context, event 
 // ==========================================
 
 func (h *WebhookHandler) handlePaymentSucceeded(ctx context.Context, event *domain.SubscriptionEvent) error {
+	_, err := h.subscriptionSvc.GetSubscriptionByExternalID(ctx, event.ExternalSubscriptionID)
+	if err != nil {
+		h.logger.Info().
+			Str("external_subscription_id", event.ExternalSubscriptionID).
+			Msg("Skipping payment_succeeded: subscription not found (likely initial checkout)")
+		return nil
+	}
+
 	return h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
 		Status:                 event.Status,

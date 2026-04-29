@@ -15,7 +15,8 @@ CREATE TABLE public.plans (
     whatsapp_limit_month INTEGER NOT NULL DEFAULT 100,
     webhook_limit_month  INTEGER NOT NULL DEFAULT 1000,
     in_app_limit_month   INTEGER NOT NULL DEFAULT 5000,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    external_price_id VARCHAR(255)
 );
 
 CREATE TABLE public.environments (

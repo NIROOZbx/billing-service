@@ -13,6 +13,7 @@ service BillingService {
     rpc CancelSubscription(CancelSubscriptionRequest) returns (CancelSubscriptionResponse);
     rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
     rpc CreateCheckoutSession(CreateCheckoutSessionRequest) returns (CreateCheckoutSessionResponse);
+    rpc GetCheckoutSession(CreateGetSessionRequest)returns(GetSessionResponse);
 }
 
 
@@ -26,6 +27,8 @@ message CreateCheckoutSessionRequest {
 message CreateCheckoutSessionResponse {
     string checkout_url = 1;
 }
+
+
 message CheckLimitRequest {
     string workspace_id = 1;
     string environment_id = 2;
@@ -70,8 +73,8 @@ message GetUsageResponse {
     string period_start = 4;
     string period_end = 5;
     string subscription_status = 6;
-}
 
+}
 message CreateSubscriptionRequest {
     string workspace_id = 1;
     string plan_id = 2;
@@ -104,4 +107,18 @@ message GetSubscriptionResponse {
     string status = 3;
     string current_period_end = 4;
     string payment_provider = 5;
+}
+
+message CreateGetSessionRequest {
+    string session_id = 1;
+}
+
+message GetSessionResponse {
+    string id = 1;
+    string customer_email = 2;
+    int64 amount_total = 3;
+    string currency = 4;
+    string payment_status = 5;
+    string plan_name = 6;
+    string subscription_id = 7;
 }

@@ -12,7 +12,7 @@ import (
 )
 
 const getPlanByID = `-- name: GetPlanByID :one
-SELECT id, name, email_limit_month, sms_limit_month, push_limit_month, slack_limit_month, whatsapp_limit_month, webhook_limit_month, in_app_limit_month, is_active
+SELECT id, name, email_limit_month, sms_limit_month, push_limit_month, slack_limit_month, whatsapp_limit_month, webhook_limit_month, in_app_limit_month, is_active, external_price_id
 FROM public.plans
 WHERE id = $1
 LIMIT 1
@@ -32,12 +32,13 @@ func (q *Queries) GetPlanByID(ctx context.Context, id pgtype.UUID) (Plan, error)
 		&i.WebhookLimitMonth,
 		&i.InAppLimitMonth,
 		&i.IsActive,
+		&i.ExternalPriceID,
 	)
 	return i, err
 }
 
 const getPlanByName = `-- name: GetPlanByName :one
-SELECT id, name, email_limit_month, sms_limit_month, push_limit_month, slack_limit_month, whatsapp_limit_month, webhook_limit_month, in_app_limit_month, is_active FROM public.plans 
+SELECT id, name, email_limit_month, sms_limit_month, push_limit_month, slack_limit_month, whatsapp_limit_month, webhook_limit_month, in_app_limit_month, is_active, external_price_id FROM public.plans 
 WHERE name = $1 LIMIT 1
 `
 
@@ -55,6 +56,7 @@ func (q *Queries) GetPlanByName(ctx context.Context, name string) (Plan, error) 
 		&i.WebhookLimitMonth,
 		&i.InAppLimitMonth,
 		&i.IsActive,
+		&i.ExternalPriceID,
 	)
 	return i, err
 }

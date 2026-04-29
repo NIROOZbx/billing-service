@@ -49,10 +49,9 @@ INSERT INTO billing.subscriptions (
     plan_id,
     payment_provider,
     external_subscription_id,
-    external_customer_id,
-    status
+    external_customer_id
   )
-VALUES ($1, $2, $3, $4, $5, $6)
+VALUES ($1, $2, $3, $4, $5)
 RETURNING id, workspace_id, plan_id, payment_provider, external_subscription_id, external_customer_id, status, provider_metadata, current_period_start, current_period_end, cancelled_at, created_at, updated_at, expiry_3d_sent
 `
 
@@ -62,7 +61,6 @@ type CreateSubscriptionParams struct {
 	PaymentProvider        string      `json:"payment_provider"`
 	ExternalSubscriptionID pgtype.Text `json:"external_subscription_id"`
 	ExternalCustomerID     pgtype.Text `json:"external_customer_id"`
-	Status                 string      `json:"status"`
 }
 
 func (q *Queries) CreateSubscription(ctx context.Context, arg CreateSubscriptionParams) (BillingSubscription, error) {
@@ -72,7 +70,6 @@ func (q *Queries) CreateSubscription(ctx context.Context, arg CreateSubscription
 		arg.PaymentProvider,
 		arg.ExternalSubscriptionID,
 		arg.ExternalCustomerID,
-		arg.Status,
 	)
 	var i BillingSubscription
 	err := row.Scan(
@@ -127,9 +124,13 @@ func (q *Queries) GetActiveSubscription(ctx context.Context, workspaceID pgtype.
 }
 
 const getExpiringSubscriptions = `-- name: GetExpiringSubscriptions :many
-SELECT id, workspace_id, plan_id, payment_provider, external_subscription_id, external_customer_id, status, provider_metadata, current_period_start, current_period_end, cancelled_at, created_at, updated_at, expiry_3d_sent from billing.subscriptions
-WHERE current_period_end BETWEEN NOW() AND NOW() + INTERVAL '3 days'
-AND status='active' AND expiry_3d_sent=false limit $1
+SELECT id, workspace_id, plan_id, payment_provider, external_subscription_id, external_customer_id, status, provider_metadata, current_period_start, current_period_end, cancelled_at, created_at, updated_at, expiry_3d_sent
+from billing.subscriptions
+WHERE current_period_end BETWEEN NOW()
+  AND NOW() + INTERVAL '3 days'
+  AND status = 'active'
+  AND expiry_3d_sent = false
+limit $1
 `
 
 func (q *Queries) GetExpiringSubscriptions(ctx context.Context, limit int32) ([]BillingSubscription, error) {
@@ -167,8 +168,37 @@ func (q *Queries) GetExpiringSubscriptions(ctx context.Context, limit int32) ([]
 	return items, nil
 }
 
+const getSubscriptionByExternalID = `-- name: GetSubscriptionByExternalID :one
+SELECT id, workspace_id, plan_id, payment_provider, external_subscription_id, external_customer_id, status, provider_metadata, current_period_start, current_period_end, cancelled_at, created_at, updated_at, expiry_3d_sent
+FROM billing.subscriptions
+WHERE external_subscription_id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetSubscriptionByExternalID(ctx context.Context, externalSubscriptionID pgtype.Text) (BillingSubscription, error) {
+	row := q.db.QueryRow(ctx, getSubscriptionByExternalID, externalSubscriptionID)
+	var i BillingSubscription
+	err := row.Scan(
+		&i.ID,
+		&i.WorkspaceID,
+		&i.PlanID,
+		&i.PaymentProvider,
+		&i.ExternalSubscriptionID,
+		&i.ExternalCustomerID,
+		&i.Status,
+		&i.ProviderMetadata,
+		&i.CurrentPeriodStart,
+		&i.CurrentPeriodEnd,
+		&i.CancelledAt,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Expiry3dSent,
+	)
+	return i, err
+}
+
 const markExpiryEmailSent = `-- name: MarkExpiryEmailSent :exec
-UPDATE billing.subscriptions 
+UPDATE billing.subscriptions
 SET expiry_3d_sent = true
 WHERE id = $1
 `

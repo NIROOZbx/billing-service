@@ -69,6 +69,7 @@ type Plan struct {
 	WebhookLimitMonth  int32       `json:"webhook_limit_month"`
 	InAppLimitMonth    int32       `json:"in_app_limit_month"`
 	IsActive           bool        `json:"is_active"`
+	ExternalPriceID    pgtype.Text `json:"external_price_id"`
 }
 
 type Workspace struct {

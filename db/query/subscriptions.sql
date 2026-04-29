@@ -12,10 +12,9 @@ INSERT INTO billing.subscriptions (
     plan_id,
     payment_provider,
     external_subscription_id,
-    external_customer_id,
-    status
+    external_customer_id
   )
-VALUES ($1, $2, $3, $4, $5, $6)
+VALUES ($1, $2, $3, $4, $5)
 RETURNING *;
 -- name: CancelActiveSubscription :exec
 UPDATE billing.subscriptions
@@ -57,3 +56,9 @@ limit $1;
 UPDATE billing.subscriptions
 SET expiry_3d_sent = true
 WHERE id = $1;
+
+-- name: GetSubscriptionByExternalID :one
+SELECT *
+FROM billing.subscriptions
+WHERE external_subscription_id = $1
+LIMIT 1;
