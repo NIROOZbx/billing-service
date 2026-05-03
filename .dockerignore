@@ -2,3 +2,4 @@
 .task/
 PROJECT_CONTEXT.md
 ./logs
+./bin
