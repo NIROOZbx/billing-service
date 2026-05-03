@@ -9,17 +9,18 @@ import (
 )
 
 var (
-	ErrNotFound          = errors.New("not found")
-	ErrAlreadyExists     = errors.New("already exists")
-	ErrInvalidInput      = errors.New("invalid input")
-	ErrInternal          = errors.New("internal server error")
+	ErrNotFound      = errors.New("not found")
+	ErrAlreadyExists = errors.New("already exists")
+	ErrInvalidInput  = errors.New("invalid input")
+	ErrInternal      = errors.New("internal server error")
 
 	// Billing Specific Errors
-	ErrActiveSubscriptionExists   = errors.New("an active subscription already exists for this workspace")
-	ErrExternalIDAlreadyExists    = errors.New("this payment provider ID is already linked to another subscription")
-	ErrPlanNotFound               = errors.New("the specified plan does not exist")
-	ErrLimitReached               = errors.New("monthly limit reached")
-	ErrNoActiveSubscription       = errors.New("no active subscription found")
+	ErrActiveSubscriptionExists = errors.New("an active subscription already exists for this workspace")
+	ErrExternalIDAlreadyExists  = errors.New("this payment provider ID is already linked to another subscription")
+	ErrPlanNotFound             = errors.New("the specified plan does not exist")
+	ErrLimitReached             = errors.New("monthly limit reached")
+	ErrNoActiveSubscription     = errors.New("no active subscription found")
+	ErrAlreadyCancelled         = errors.New("already been cancelled")
 )
 
 // MapDBError is a reusable component that translates raw database errors

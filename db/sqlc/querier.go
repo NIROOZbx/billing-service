@@ -21,13 +21,14 @@ type Querier interface {
 	GetPlanByName(ctx context.Context, name string) (Plan, error)
 	GetProviderUsageByWorkspace(ctx context.Context, arg GetProviderUsageByWorkspaceParams) ([]BillingProviderUsage, error)
 	GetSubscriptionByExternalID(ctx context.Context, externalSubscriptionID pgtype.Text) (BillingSubscription, error)
+	GetSubscriptionByID(ctx context.Context, id pgtype.UUID) (BillingSubscription, error)
 	GetUsageByChannel(ctx context.Context, arg GetUsageByChannelParams) (BillingUsage, error)
 	GetUsageByWorkspace(ctx context.Context, arg GetUsageByWorkspaceParams) ([]BillingUsage, error)
 	MarkExpiryEmailSent(ctx context.Context, id pgtype.UUID) error
 	RenewExpiredFreeSubscription(ctx context.Context, workspaceID pgtype.UUID) (BillingSubscription, error)
 	SetLimit100Sent(ctx context.Context, id pgtype.UUID) error
 	SetLimit80Sent(ctx context.Context, id pgtype.UUID) error
-	SyncSubscription(ctx context.Context, arg SyncSubscriptionParams) (pgconn.CommandTag, error)
+	SyncSubscription(ctx context.Context, arg SyncSubscriptionParams) error
 	UpsertProviderUsage(ctx context.Context, arg UpsertProviderUsageParams) error
 	UpsertUsage(ctx context.Context, arg UpsertUsageParams) (BillingUsage, error)
 }

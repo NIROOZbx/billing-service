@@ -30,6 +30,7 @@ func (s *subscriptionRepository) GetActive(ctx context.Context, workspaceID uuid
 }
 
 func (s *subscriptionRepository) Create(ctx context.Context, input domain.CreateSubscriptionInput) (*domain.Subscription, error) {
+	
 	row, err := s.queries.CreateSubscription(ctx, sqlc.CreateSubscriptionParams{
 		WorkspaceID:            helpers.ToPgUUID(input.WorkspaceID),
 		PlanID:                 helpers.ToPgUUID(input.PlanID),
@@ -40,6 +41,9 @@ func (s *subscriptionRepository) Create(ctx context.Context, input domain.Create
 	if err != nil {
 		return nil, apperrors.MapDBError(err)
 	}
+
+	fmt.Println("Period start time",row.CurrentPeriodStart)
+	fmt.Println("Period end time",row.CurrentPeriodEnd)
 
 	return mapToDomain(&row), nil
 }
@@ -75,7 +79,6 @@ func (s *subscriptionRepository) RenewExpiredFreeSubscription(ctx context.Contex
 
 func (s *subscriptionRepository) SyncSubscription(ctx context.Context, input domain.SyncSubscriptionInput) error {
 
-	fmt.Println("sync subscriprion called",input)
 	var pgCancelledAt pgtype.Timestamptz
 	if input.CancelledAt != nil && !input.CancelledAt.IsZero() {
 		pgCancelledAt = helpers.ToPgTimestamp(*input.CancelledAt)
@@ -83,13 +86,21 @@ func (s *subscriptionRepository) SyncSubscription(ctx context.Context, input dom
 
 	arg := sqlc.SyncSubscriptionParams{
 		ExternalSubscriptionID: helpers.ToPgText(input.ExternalSubscriptionID),
+		WorkspaceID:            helpers.ToPgUUID(input.WorkspaceID),
+		PlanID:                 helpers.ToPgUUID(input.PlanID),
 		Status:                 input.Status,
 		CurrentPeriodStart:     helpers.ToPgTimestamp(input.CurrentPeriodStart),
 		CurrentPeriodEnd:       helpers.ToPgTimestamp(input.CurrentPeriodEnd),
 		CancelledAt:            pgCancelledAt,
+		PaymentProvider:        input.PaymentProvider,
+		ExternalCustomerID:     helpers.ToPgText(input.ExternalCustomerID),
 	}
+		fmt.Println("Sync subscription created")
 
-	_, err := s.queries.SyncSubscription(ctx, arg)
+
+	err := s.queries.SyncSubscription(ctx, arg)
+
+
 	return apperrors.MapDBError(err)
 }
 
@@ -106,6 +117,16 @@ func (s *subscriptionRepository) GetExpiringSubscription(ctx context.Context, li
 	}
 	return res, nil
 }
+
+func(s *subscriptionRepository)GetByID(ctx context.Context,id uuid.UUID)(*domain.Subscription,error){
+	row,err:=s.queries.GetSubscriptionByID(ctx,helpers.ToPgUUID(id))
+
+	if err != nil {
+		return nil, apperrors.MapDBError(err)
+	}
+	return mapToDomain(&row), nil
+}
+
 
 func (s *subscriptionRepository) MarkExpiryEmailSent(ctx context.Context, id uuid.UUID) error {
 	return s.queries.MarkExpiryEmailSent(ctx, helpers.ToPgUUID(id))

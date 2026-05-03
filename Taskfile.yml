@@ -1,10 +1,11 @@
-version: '3'
+version: "3"
 
-dotenv: [".env"]
+dotenv: [ ".env" ]
 
 vars:
   MIGRATION_PATH: "db/migrations"
-  DB_URL: "postgres://{{.DB_USER}}:{{.DB_PASSWORD}}@localhost:{{.DB_PORT}}/{{.DB_NAME}}?sslmode=disable&x-migrations-table=billing_schema_migrations"
+  DB_URL: "postgres://{{.DB_USER}}:{{.DB_PASSWORD}}@localhost:{{.DB_PORT}}/{{.DB_\
+    NAME}}?sslmode=disable&x-migrations-table=billing_schema_migrations"
 
 tasks:
   gen-proto:
@@ -29,7 +30,8 @@ tasks:
   migrate-down:
     cmds:
       - echo "Dropping database schema..."
-      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" down {{.CLI_ARGS}}
+      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" down
+        {{.CLI_ARGS}}
 
   migrate-up:
     cmds:
@@ -40,7 +42,8 @@ tasks:
   migrate-force:
     cmds:
       - echo "Forcing database migration..."
-      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" force {{.CLI_ARGS}}
+      - migrate -path {{.MIGRATION_PATH}} -database "{{.DB_URL}}" force
+        {{.CLI_ARGS}}
 
   gen-sql:
     desc: Generate Go code from SQL queries using sqlc
@@ -49,7 +52,7 @@ tasks:
 
   generate:
     desc: Run all generation tasks
-    deps: [gen-proto, gen-sql]
+    deps: [ gen-proto, gen-sql ]
 
   build:
     desc: Build the service binary
@@ -60,10 +63,24 @@ tasks:
     desc: Run go mod tidy
     cmds:
       - go mod tidy
-      
+
   run:
     desc: Run the service locally
     cmds:
       - task: migrate-up
       - task: build
       - bin/billing.exe
+
+  docker-build:
+    desc: Build the Docker image for the billing service
+    cmds:
+      - docker build -t billing-service-image .
+
+  docker-run:
+    desc: Build and run the billing service in a Docker container securely using .env
+    cmds:
+      - task: docker-build
+      - docker rm -f billing-service || true
+      - docker run --rm -d --network deployments_default --env-file .env -p 8081:8081 -p 50051:50051 --name billing-service billing-service-image
+      - docker logs -f billing-service
+

@@ -14,7 +14,7 @@ type Config struct {
 	Database DatabaseConfig `mapstructure:"database"`
 	Stripe   StripeConfig   `mapstructure:"stripe"`
 	Log      LogConfig      `mapstructure:"log"`
-	Kafka KafkaConfig `mapstructure:"kafka"`
+	Kafka    KafkaConfig    `mapstructure:"kafka"`
 }
 
 type AppConfig struct {
@@ -41,8 +41,8 @@ type DatabaseConfig struct {
 type StripeConfig struct {
 	ApiKey        string `mapstructure:"api_key"`
 	WebhookSecret string `mapstructure:"webhook_secret"`
-	SuccessURL string `mapstructure:"success_url"`
-	CancelURL string `mapstructure:"cancel_url"`
+	SuccessURL    string `mapstructure:"success_url"`
+	CancelURL     string `mapstructure:"cancel_url"`
 }
 
 type LogConfig struct {

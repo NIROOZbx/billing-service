@@ -37,7 +37,7 @@ func (p *StripeProvider) ParseEvent(body []byte, header http.Header) (*domain.Bi
 		p.log.Error().Err(err).Msg("failed to construct stripe event")
 		return nil, fmt.Errorf("invalid stripe signature: %w", err)
 	}
-
+	
 	p.log.Info().Str("event_type", string(event.Type)).Str("event_id", event.ID).Msg("stripe event received")
 
 	switch event.Type {
@@ -64,6 +64,12 @@ func (p *StripeProvider) CreateCheckoutSession(params domain.CheckoutSessionPara
 		Mode:              stripe.String(string(stripe.CheckoutSessionModeSubscription)),
 		Metadata: map[string]string{
 			"plan_id": params.PlanID,
+		},
+		SubscriptionData: &stripe.CheckoutSessionSubscriptionDataParams{
+			Metadata: map[string]string{
+				"workspace_id": params.WorkspaceID,
+				"plan_id":      params.PlanID,
+			},
 		},
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
@@ -126,9 +132,19 @@ func (p *StripeProvider) handleCheckoutSession(event stripe.Event) (*domain.Bill
 		helpers.UUIDField{Value: session.ClientReferenceID, Name: "workspace id", Dest: &workspaceID},
 		helpers.UUIDField{Value: session.Metadata["plan_id"], Name: "plan id", Dest: &planID},
 	); err != nil {
+		p.log.Error().
+			Err(err).
+			Str("client_reference_id", session.ClientReferenceID).
+			Interface("metadata", session.Metadata).
+			Msg("❌ Missing or invalid metadata in checkout session")
 		return nil, fmt.Errorf("invalid metadata variables: %w", err)
 	}
-	
+
+	p.log.Info().
+		Str("workspace_id", workspaceID.String()).
+		Str("plan_id", planID.String()).
+		Str("subscription_id", session.Subscription.ID).
+		Msg("✅ Checkout session metadata parsed successfully")
 
 	stripeSub, err := subscription.Get(session.Subscription.ID, nil)
 	if err != nil {
@@ -171,10 +187,19 @@ func (p *StripeProvider) handleSubscriptionUpdated(event stripe.Event) (*domain.
 		Str("status", string(sub.Status)).
 		Msg("stripe subscription updated event handled")
 
+	p.log.Info().
+		Str("subscription_id", sub.ID).
+		Str("status", string(sub.Status)).
+		Msg("🔄 Stripe subscription updated event parsed")
+
 	return &domain.BillingEvent{
 		Type: domain.EventSubscriptionUpdated,
 		Subscription: &domain.SubscriptionEvent{
 			ExternalSubscriptionID: sub.ID,
+			ExternalCustomerID:     sub.Customer.ID,
+			WorkspaceID:            sub.Metadata["workspace_id"],
+			PlanID:                 sub.Metadata["plan_id"],
+			PaymentProvider:        constants.ProviderStripe,
 			Status:                 mapStripeStatus(sub.Status),
 			CurrentPeriodStart:     helpers.UnixToTime(sub.Items.Data[0].CurrentPeriodStart),
 			CurrentPeriodEnd:       helpers.UnixToTime(sub.Items.Data[0].CurrentPeriodEnd),
@@ -182,6 +207,8 @@ func (p *StripeProvider) handleSubscriptionUpdated(event stripe.Event) (*domain.
 		},
 	}, nil
 }
+
+
 
 func (p *StripeProvider) handleSubscriptionDeleted(event stripe.Event) (*domain.BillingEvent, error) {
 	var sub stripe.Subscription
@@ -199,6 +226,10 @@ func (p *StripeProvider) handleSubscriptionDeleted(event stripe.Event) (*domain.
 		Type: domain.EventSubscriptionCancelled,
 		Subscription: &domain.SubscriptionEvent{
 			ExternalSubscriptionID: sub.ID,
+			ExternalCustomerID:     sub.Customer.ID,
+			WorkspaceID:            sub.Metadata["workspace_id"],
+			PlanID:                 sub.Metadata["plan_id"],
+			PaymentProvider:        constants.ProviderStripe,
 			Status:                 constants.SubscriptionStatusCancelled,
 			CurrentPeriodStart:     helpers.UnixToTime(sub.Items.Data[0].CurrentPeriodStart),
 			CurrentPeriodEnd:       helpers.UnixToTime(sub.Items.Data[0].CurrentPeriodEnd),
@@ -206,6 +237,7 @@ func (p *StripeProvider) handleSubscriptionDeleted(event stripe.Event) (*domain.
 		},
 	}, nil
 }
+
 
 func (p *StripeProvider) handleInvoicePaymentSucceeded(event stripe.Event) (*domain.BillingEvent, error) {
 	var inv stripe.Invoice
@@ -218,16 +250,28 @@ func (p *StripeProvider) handleInvoicePaymentSucceeded(event stripe.Event) (*dom
 
 	sub := inv.Parent.SubscriptionDetails.Subscription
 
+	p.log.Info().
+		Str("invoice_id", inv.ID).
+		Str("subscription_id", sub.ID).
+		Msg("💰 Invoice payment succeeded event parsed")
+
 	return &domain.BillingEvent{
 		Type: domain.EventPaymentSucceeded,
 		Subscription: &domain.SubscriptionEvent{
 			ExternalSubscriptionID: sub.ID,
+			ExternalCustomerID:     inv.Customer.ID,
+			WorkspaceID:            inv.Parent.SubscriptionDetails.Metadata["workspace_id"],
+			PlanID:                 inv.Parent.SubscriptionDetails.Metadata["plan_id"],
+			PaymentProvider:        constants.ProviderStripe,
 			Status:                 constants.SubscriptionStatusActive,
 			CurrentPeriodStart:     helpers.UnixToTime(inv.PeriodStart),
 			CurrentPeriodEnd:       helpers.UnixToTime(inv.PeriodEnd),
 		},
 	}, nil
 }
+
+
+
 
 func (p *StripeProvider) handleInvoicePaymentFailed(event stripe.Event) (*domain.BillingEvent, error) {
 	var inv stripe.Invoice
@@ -239,17 +283,28 @@ func (p *StripeProvider) handleInvoicePaymentFailed(event stripe.Event) (*domain
 	}
 
 	sub := inv.Parent.SubscriptionDetails.Subscription
+	p.log.Info().
+		Str("invoice_id", inv.ID).
+		Str("subscription_id", sub.ID).
+		Msg("❌ Invoice payment failed event parsed")
 
 	return &domain.BillingEvent{
 		Type: domain.EventPaymentFailed,
 		Subscription: &domain.SubscriptionEvent{
 			ExternalSubscriptionID: sub.ID,
+			ExternalCustomerID:     inv.Customer.ID,
+			WorkspaceID:            inv.Parent.SubscriptionDetails.Metadata["workspace_id"],
+			PlanID:                 inv.Parent.SubscriptionDetails.Metadata["plan_id"],
+			PaymentProvider:        constants.ProviderStripe,
 			Status:                 constants.SubscriptionStatusPastDue,
 			CurrentPeriodStart:     helpers.UnixToTime(inv.PeriodStart),
 			CurrentPeriodEnd:       helpers.UnixToTime(inv.PeriodEnd),
 		},
 	}, nil
 }
+
+
+
 
 func mapStripeStatus(status stripe.SubscriptionStatus) string {
 	switch status {

@@ -197,6 +197,36 @@ func (q *Queries) GetSubscriptionByExternalID(ctx context.Context, externalSubsc
 	return i, err
 }
 
+const getSubscriptionByID = `-- name: GetSubscriptionByID :one
+
+SELECT id, workspace_id, plan_id, payment_provider, external_subscription_id, external_customer_id, status, provider_metadata, current_period_start, current_period_end, cancelled_at, created_at, updated_at, expiry_3d_sent
+FROM billing.subscriptions
+WHERE id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetSubscriptionByID(ctx context.Context, id pgtype.UUID) (BillingSubscription, error) {
+	row := q.db.QueryRow(ctx, getSubscriptionByID, id)
+	var i BillingSubscription
+	err := row.Scan(
+		&i.ID,
+		&i.WorkspaceID,
+		&i.PlanID,
+		&i.PaymentProvider,
+		&i.ExternalSubscriptionID,
+		&i.ExternalCustomerID,
+		&i.Status,
+		&i.ProviderMetadata,
+		&i.CurrentPeriodStart,
+		&i.CurrentPeriodEnd,
+		&i.CancelledAt,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Expiry3dSent,
+	)
+	return i, err
+}
+
 const markExpiryEmailSent = `-- name: MarkExpiryEmailSent :exec
 UPDATE billing.subscriptions
 SET expiry_3d_sent = true
@@ -240,29 +270,49 @@ func (q *Queries) RenewExpiredFreeSubscription(ctx context.Context, workspaceID 
 	return i, err
 }
 
-const syncSubscription = `-- name: SyncSubscription :execresult
-UPDATE billing.subscriptions
-SET status = $2,
-  current_period_start = $3,
-  current_period_end = $4,
-  cancelled_at = $5
-WHERE external_subscription_id = $1
+const syncSubscription = `-- name: SyncSubscription :exec
+INSERT INTO billing.subscriptions (
+    external_subscription_id,
+    workspace_id,
+    plan_id,
+    status,
+    current_period_start,
+    current_period_end,
+    cancelled_at,
+    payment_provider,
+    external_customer_id
+) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+ON CONFLICT (external_subscription_id) DO UPDATE SET
+    status = EXCLUDED.status,
+    current_period_start = EXCLUDED.current_period_start,
+    current_period_end = EXCLUDED.current_period_end,
+    cancelled_at = EXCLUDED.cancelled_at,
+    updated_at = NOW()
 `
 
 type SyncSubscriptionParams struct {
 	ExternalSubscriptionID pgtype.Text        `json:"external_subscription_id"`
+	WorkspaceID            pgtype.UUID        `json:"workspace_id"`
+	PlanID                 pgtype.UUID        `json:"plan_id"`
 	Status                 string             `json:"status"`
 	CurrentPeriodStart     pgtype.Timestamptz `json:"current_period_start"`
 	CurrentPeriodEnd       pgtype.Timestamptz `json:"current_period_end"`
 	CancelledAt            pgtype.Timestamptz `json:"cancelled_at"`
+	PaymentProvider        string             `json:"payment_provider"`
+	ExternalCustomerID     pgtype.Text        `json:"external_customer_id"`
 }
 
-func (q *Queries) SyncSubscription(ctx context.Context, arg SyncSubscriptionParams) (pgconn.CommandTag, error) {
-	return q.db.Exec(ctx, syncSubscription,
+func (q *Queries) SyncSubscription(ctx context.Context, arg SyncSubscriptionParams) error {
+	_, err := q.db.Exec(ctx, syncSubscription,
 		arg.ExternalSubscriptionID,
+		arg.WorkspaceID,
+		arg.PlanID,
 		arg.Status,
 		arg.CurrentPeriodStart,
 		arg.CurrentPeriodEnd,
 		arg.CancelledAt,
+		arg.PaymentProvider,
+		arg.ExternalCustomerID,
 	)
+	return err
 }

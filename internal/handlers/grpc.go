@@ -342,5 +342,8 @@ func mapGRPCError(err error) error {
 	if errors.Is(err, apperrors.ErrNotFound) || errors.Is(err, apperrors.ErrPlanNotFound) {
 		return status.Error(codes.NotFound, err.Error())
 	}
+	if errors.Is(err, apperrors.ErrAlreadyCancelled) {
+		return status.Error(codes.FailedPrecondition, err.Error())
+	}
 	return status.Errorf(codes.Internal, "internal server error: %v", err)
 }

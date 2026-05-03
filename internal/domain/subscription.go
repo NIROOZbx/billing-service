@@ -36,6 +36,10 @@ type CreateSubscriptionInput struct {
 
 type SyncSubscriptionInput struct {
 	ExternalSubscriptionID string
+	WorkspaceID            uuid.UUID
+	PlanID                 uuid.UUID
+	PaymentProvider        string
+	ExternalCustomerID     string
 	Status                 string
 	CurrentPeriodStart     time.Time
 	CurrentPeriodEnd       time.Time
@@ -64,6 +68,7 @@ type SubscriptionRepository interface {
 	GetExpiringSubscription(ctx context.Context, limit int) ([]*Subscription, error)
 	MarkExpiryEmailSent(ctx context.Context, id uuid.UUID) error
 	GetByExternalID(ctx context.Context, externalID string) (*Subscription, error)
+	GetByID(ctx context.Context,id uuid.UUID)(*Subscription,error)
 }
 
 type SubscriptionService interface {

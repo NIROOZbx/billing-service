@@ -32,6 +32,7 @@ func NewWebHookHandler(provider domain.BillingProvider, svc domain.SubscriptionS
 func (h *WebhookHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	bytes, err := io.ReadAll(r.Body)
 	if err != nil {
+		h.logger.Error().Err(err).Msg("❌ Failed to read webhook request body")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -71,10 +72,19 @@ func (h *WebhookHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
+		h.logger.Error().
+			Err(err).
+			Str("event_type", string(event.Type)).
+			Str("external_subscription_id", event.Subscription.ExternalSubscriptionID).
+			Msg("❌ Failed to process billing event")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
+	h.logger.Info().
+		Str("event_type", string(event.Type)).
+		Str("external_subscription_id", event.Subscription.ExternalSubscriptionID).
+		Msg("✅ Successfully processed billing event")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -84,6 +94,10 @@ func (h *WebhookHandler) Handle(w http.ResponseWriter, r *http.Request) {
 // ==========================================
 
 func (h *WebhookHandler) handleSubscriptionCreated(ctx context.Context, event *domain.SubscriptionEvent) error {
+	h.logger.Info().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Msg("⏳ Creating new subscription from webhook...")
+
 	_, err := h.subscriptionSvc.Subscribe(ctx, domain.CreateSubscriptionInput{
 		WorkspaceID:            helpers.ParseUUID(event.WorkspaceID),
 		PlanID:                 helpers.ParseUUID(event.PlanID),
@@ -91,27 +105,61 @@ func (h *WebhookHandler) handleSubscriptionCreated(ctx context.Context, event *d
 		ExternalCustomerID:     event.ExternalCustomerID,
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
 	})
-	return err
+	if err != nil {
+		return err
+	}
+
+	h.logger.Info().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Msg("🆕 Subscription created successfully")
+	return nil
 }
 
 func (h *WebhookHandler) handleSubscriptionUpdated(ctx context.Context, event *domain.SubscriptionEvent) error {
-	return h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
+	err := h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
+		WorkspaceID:            helpers.ParseUUID(event.WorkspaceID),
+		PlanID:                 helpers.ParseUUID(event.PlanID),
+		PaymentProvider:        event.PaymentProvider,
+		ExternalCustomerID:     event.ExternalCustomerID,
 		Status:                 event.Status,
 		CurrentPeriodStart:     event.CurrentPeriodStart,
 		CurrentPeriodEnd:       event.CurrentPeriodEnd,
 		CancelledAt:            event.CancelledAt,
 	})
+
+	if err != nil {
+		return err
+	}
+
+	h.logger.Info().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Str("status", event.Status).
+		Msg("🔄 Subscription updated successfully")
+	return nil
 }
 
 func (h *WebhookHandler) handleSubscriptionCancelled(ctx context.Context, event *domain.SubscriptionEvent) error {
-	return h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
+	err := h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
+		WorkspaceID:            helpers.ParseUUID(event.WorkspaceID),
+		PlanID:                 helpers.ParseUUID(event.PlanID),
+		PaymentProvider:        event.PaymentProvider,
+		ExternalCustomerID:     event.ExternalCustomerID,
 		Status:                 constants.SubscriptionStatusCancelled,
 		CurrentPeriodStart:     event.CurrentPeriodStart,
 		CurrentPeriodEnd:       event.CurrentPeriodEnd,
 		CancelledAt:            event.CancelledAt,
 	})
+
+	if err != nil {
+		return err
+	}
+
+	h.logger.Info().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Msg("🚫 Subscription cancelled successfully")
+	return nil
 }
 
 // ==========================================
@@ -120,27 +168,47 @@ func (h *WebhookHandler) handleSubscriptionCancelled(ctx context.Context, event 
 // ==========================================
 
 func (h *WebhookHandler) handlePaymentSucceeded(ctx context.Context, event *domain.SubscriptionEvent) error {
-	_, err := h.subscriptionSvc.GetSubscriptionByExternalID(ctx, event.ExternalSubscriptionID)
-	if err != nil {
-		h.logger.Info().
-			Str("external_subscription_id", event.ExternalSubscriptionID).
-			Msg("Skipping payment_succeeded: subscription not found (likely initial checkout)")
-		return nil
-	}
-
-	return h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
+	err := h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
+
+		WorkspaceID:            helpers.ParseUUID(event.WorkspaceID),
+		PlanID:                 helpers.ParseUUID(event.PlanID),
+		PaymentProvider:        event.PaymentProvider,
+		ExternalCustomerID:     event.ExternalCustomerID,
 		Status:                 event.Status,
 		CurrentPeriodStart:     event.CurrentPeriodStart,
 		CurrentPeriodEnd:       event.CurrentPeriodEnd,
 	})
+
+	if err != nil {
+		return err
+	}
+
+	h.logger.Info().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Msg("💰 Recurring payment succeeded and subscription synced")
+	return nil
 }
 
 func (h *WebhookHandler) handlePaymentFailed(ctx context.Context, event *domain.SubscriptionEvent) error {
-	return h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
+	err := h.subscriptionSvc.SyncSubscription(ctx, domain.SyncSubscriptionInput{
 		ExternalSubscriptionID: event.ExternalSubscriptionID,
+		WorkspaceID:            helpers.ParseUUID(event.WorkspaceID),
+		PlanID:                 helpers.ParseUUID(event.PlanID),
+		PaymentProvider:        event.PaymentProvider,
+		ExternalCustomerID:     event.ExternalCustomerID,
 		Status:                 event.Status,
 		CurrentPeriodStart:     event.CurrentPeriodStart,
 		CurrentPeriodEnd:       event.CurrentPeriodEnd,
 	})
+
+	if err != nil {
+		return err
+	}
+
+	h.logger.Warn().
+		Str("external_subscription_id", event.ExternalSubscriptionID).
+		Str("status", event.Status).
+		Msg("⚠️ Payment failed and subscription status updated")
+	return nil
 }

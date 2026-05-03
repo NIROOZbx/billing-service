@@ -6,6 +6,8 @@ import (
 
 	"github.com/NIROOZbx/billing-service/config"
 	"github.com/NIROOZbx/billing-service/internal/domain"
+	"github.com/NIROOZbx/billing-service/pkg/apperrors"
+	"github.com/NIROOZbx/billing-service/pkg/constants"
 	"github.com/google/uuid"
 )
 
@@ -59,8 +61,22 @@ func (s *subscriptionService) Subscribe(ctx context.Context, input domain.Create
 }
 
 func (s *subscriptionService) Cancel(ctx context.Context, workspaceID, subscriptionID uuid.UUID) error {
+	sub, err := s.repo.GetByID(ctx, subscriptionID)
+	if err != nil {
+		return err
+	}
+
+	if sub.WorkspaceID != workspaceID {
+		return apperrors.ErrNotFound
+	}
+
+	if sub.Status == constants.SubscriptionStatusCancelled {
+		return apperrors.ErrAlreadyCancelled
+	}
+
 	return s.repo.Cancel(ctx, workspaceID, subscriptionID)
 }
+
 
 func (s *subscriptionService) SyncSubscription(ctx context.Context, input domain.SyncSubscriptionInput) error {
 	return s.repo.SyncSubscription(ctx, input)

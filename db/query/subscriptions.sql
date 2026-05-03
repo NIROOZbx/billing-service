@@ -37,13 +37,25 @@ WHERE workspace_id = $1
   AND current_period_end < NOW()
   AND payment_provider = 'system'
 RETURNING *;
--- name: SyncSubscription :execresult
-UPDATE billing.subscriptions
-SET status = $2,
-  current_period_start = $3,
-  current_period_end = $4,
-  cancelled_at = $5
-WHERE external_subscription_id = $1;
+-- name: SyncSubscription :exec
+INSERT INTO billing.subscriptions (
+    external_subscription_id,
+    workspace_id,
+    plan_id,
+    status,
+    current_period_start,
+    current_period_end,
+    cancelled_at,
+    payment_provider,
+    external_customer_id
+) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+ON CONFLICT (external_subscription_id) DO UPDATE SET
+    status = EXCLUDED.status,
+    current_period_start = EXCLUDED.current_period_start,
+    current_period_end = EXCLUDED.current_period_end,
+    cancelled_at = EXCLUDED.cancelled_at,
+    updated_at = NOW();
+
 -- name: GetExpiringSubscriptions :many
 SELECT *
 from billing.subscriptions
@@ -61,4 +73,11 @@ WHERE id = $1;
 SELECT *
 FROM billing.subscriptions
 WHERE external_subscription_id = $1
+LIMIT 1;
+
+-- name: GetSubscriptionByID :one
+
+SELECT *
+FROM billing.subscriptions
+WHERE id = $1
 LIMIT 1;
