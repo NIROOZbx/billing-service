@@ -81,6 +81,5 @@ tasks:
     cmds:
       - task: docker-build
       - docker rm -f billing-service || true
-      - docker run --rm -d --network deployments_default --env-file .env -p 8081:8081 -p 50051:50051 --name billing-service billing-service-image
+      - docker run -d --network deployments_default --env-file .env --name billing-service billing-service-image
       - docker logs -f billing-service
-

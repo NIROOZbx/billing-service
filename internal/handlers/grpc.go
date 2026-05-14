@@ -214,10 +214,9 @@ func (s *BillingServer) GetSubscription(ctx context.Context, req *billingv1.GetS
 
 	subscription, err := s.subscriptionSvc.GetActiveSubscription(ctx, workspaceID)
 	if err != nil {
-		s.logger.Info().Interface("data",subscription).Msg("subsction got ")
+		s.logger.Info().Interface("data",subscription).Msg("subscription got ")
 		return nil, mapGRPCError(err)
 	}
-
 
 	plan, err := s.planSvc.GetPlanByID(ctx, subscription.PlanID)
 	if err != nil {

@@ -79,6 +79,7 @@ func LoadConfig() (*Config, error) {
 	v.BindEnv("stripe.webhook_secret", "STRIPE_WEBHOOK_SECRET")
 	v.BindEnv("stripe.success_url", "STRIPE_SUCCESS_URL")
 	v.BindEnv("stripe.cancel_url", "STRIPE_CANCEL_URL")
+	v.BindEnv("kafka.broker_address", "KAFKA_BROKER_ADDRESS")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file: %w", err)
@@ -88,6 +89,7 @@ func LoadConfig() (*Config, error) {
 	if err := v.Unmarshal(&config); err != nil {
 		return nil, fmt.Errorf("error unmarshaling config: %w", err)
 	}
+	fmt.Println("DB HOST IS ",config.Database.Host)
 
 	config.Database.URL = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		config.Database.User,

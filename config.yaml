@@ -19,6 +19,6 @@ log:
   max_age_days: 28
 
 kafka:
-  broker_address: "localhost:9093"
+  broker_address: "deployments-kafka-1:9092"
   batch_size: 100
   batch_timeout_ms: 10
