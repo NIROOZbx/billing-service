@@ -1,0 +1,22 @@
+apiVersion: skaffold/v4beta14
+kind: Config
+metadata:
+  name: billing-service
+build:
+  artifacts:
+    - image: billing-service
+      context: .
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+deploy:
+  helm:
+    releases:
+      - name: billing-service
+        chartPath: ./billing-service
+        valuesFiles:
+          - ./billing-service/values.yaml
+        setValueTemplates:
+          image.repository: "{{.IMAGE_REPO_billing-service}}"
+          image.tag: "{{.IMAGE_TAG_billing-service}}"

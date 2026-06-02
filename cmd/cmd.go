@@ -84,6 +84,10 @@ func setupGRPCServer(a *app.App, addr string) (*grpc.Server, net.Listener, error
 func setupHTTPServer(a *app.App) *http.Server {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/webhooks/stripe", a.WebHookHandler.Handle)
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
+	})
 	return &http.Server{
 		Addr:    ":" + a.Config.App.HttpPort,
 		Handler: mux,

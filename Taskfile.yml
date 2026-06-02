@@ -1,10 +1,11 @@
 version: "3"
 
-dotenv: [ ".env" ]
+dotenv: [".env"]
 
 vars:
   MIGRATION_PATH: "db/migrations"
-  DB_URL: "postgres://{{.DB_USER}}:{{.DB_PASSWORD}}@localhost:{{.DB_PORT}}/{{.DB_\
+  DB_URL:
+    "postgres://{{.DB_USER}}:{{.DB_PASSWORD}}@localhost:{{.DB_PORT}}/{{.DB_\
     NAME}}?sslmode=disable&x-migrations-table=billing_schema_migrations"
 
 tasks:
@@ -52,7 +53,7 @@ tasks:
 
   generate:
     desc: Run all generation tasks
-    deps: [ gen-proto, gen-sql ]
+    deps: [gen-proto, gen-sql]
 
   build:
     desc: Build the service binary
@@ -74,7 +75,7 @@ tasks:
   docker-build:
     desc: Build the Docker image for the billing service
     cmds:
-      - docker build -t billing-service-image .
+      - docker build -t billing-service .
 
   docker-run:
     desc: Build and run the billing service in a Docker container securely using .env
@@ -83,3 +84,8 @@ tasks:
       - docker rm -f billing-service || true
       - docker run -d --network deployments_default --env-file .env --name billing-service billing-service-image
       - docker logs -f billing-service
+
+  k8s-dev:
+    desc: Run local development on Kubernetes using Skaffold
+    cmds:
+      - skaffold dev

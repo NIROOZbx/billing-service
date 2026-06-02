@@ -2,7 +2,7 @@ app:
   name: "billing-service"
   port: "50051"
   http_port: "8081"
-  environment: "development"
+  environment: "production"
 
 database:
   max_open_conns: 50

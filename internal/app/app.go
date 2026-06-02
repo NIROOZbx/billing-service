@@ -30,7 +30,7 @@ type App struct {
 }
 
 func StartApp(cfg *config.Config) (*App, error) {
-	syslog := logger.NewLogger(&cfg.Log)
+	syslog := logger.NewLogger(&cfg.Log, cfg.App.Environment)
 	syslog.Info().Msg("Starting billing service...")
 
 	pool, err := db.ConnectDB(cfg.Database)

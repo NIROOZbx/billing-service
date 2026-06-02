@@ -19,6 +19,7 @@ RUN adduser -D nirooz && chown -R nirooz:nirooz /app
 USER nirooz
 
 COPY --chown=nirooz:nirooz --from=builder /app/backend .
+
 COPY --chown=nirooz:nirooz ./config.yaml ./config.yaml
 
 EXPOSE 8081 50051

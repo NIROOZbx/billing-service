@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-service
+  annotations:
+    reloader.stakater.com/search: "true"
+  labels:
+    app: billing-backend
+    tier: backend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: billing-backend
+  template:
+    metadata:
+      labels:
+        app: billing-backend
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: billing-service
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          image: billing-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: grpc
+              containerPort: 50051
+            - name: webhook
+              containerPort: 8081
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: DB_NAME
+              value: "notif_db"
+            - name: DB_PORT
+              value: "5433"
+            - name: DB_HOST
+              value: "host.docker.internal"
+            - name: KAFKA_BROKER_ADDRESS
+              value: "host.docker.internal:9093"
+            - name: STRIPE_SUCCESS_URL
+              value: "http://localhost:5173/billing/success?session_id={CHECKOUT_SESSION_ID}"
+            - name: STRIPE_CANCEL_URL
+              value: "http://localhost:5173/pricing"
+          envFrom:
+            - secretRef:
+                name: billing-service-secrets

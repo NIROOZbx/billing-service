@@ -1,0 +1,19 @@
+# Production Helm configuration overrides for billing-service
+replicaCount: 3
+
+image:
+  repository: prod-registry.io/billing-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+database:
+  name: "billing_prod"
+  port: "5432"
+  host: "postgres-prod.database.svc.cluster.local"
+
+kafka:
+  brokerAddress: "kafka-bootstrap.kafka.svc.cluster.local:9092"
+
+stripe:
+  successUrl: "https://app.notificationengine.com/billing/success?session_id={CHECKOUT_SESSION_ID}"
+  cancelUrl: "https://app.notificationengine.com/pricing"

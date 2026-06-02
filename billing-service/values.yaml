@@ -1,0 +1,77 @@
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+
+image:
+  repository: billing-service
+  pullPolicy: IfNotPresent
+  tag: "latest"
+podAnnotations:
+  reloader.stakater.com/search: "true"
+
+podLabels:
+  tier: backend
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+ports:
+  - name: grpc
+    containerPort: 50051
+    protocol: TCP
+  - name: webhook
+    containerPort: 8081
+    protocol: TCP
+
+probes:
+  readiness:
+    path: /health
+    port: 8081
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  liveness:
+    path: /health
+    port: 8081
+    initialDelaySeconds: 15
+    periodSeconds: 20
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+database:
+  name: "notif_db"
+  port: "5433"
+  host: "host.docker.internal"
+
+kafka:
+  brokerAddress: "host.docker.internal:9093"
+
+stripe:
+  successUrl: "http://localhost:5173/billing/success?session_id={CHECKOUT_SESSION_ID}"
+  cancelUrl: "http://localhost:5173/pricing"
+
+service:
+  type: ClusterIP
+
+externalSecret:
+  enabled: true
+  refreshInterval: "10m"
+  secretStore:
+    name: "envoy-secret-store"
+    kind: "SecretStore"
+  key: "prod/billing-service"
