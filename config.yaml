@@ -5,11 +5,11 @@ app:
   environment: "production"
 
 database:
-  max_open_conns: 50
-  min_open_conns: 25
-  max_idle_conns: 25
-  max_conn_lifetime: "30m"
-  max_idle_time: "5m"
+  max_open_conns: 5
+  min_open_conns: 1
+  max_idle_conns: 2
+  max_conn_lifetime: "5m"
+  max_idle_time: "1m"
 
 log:
   level: "info"

@@ -1,0 +1,83 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'deployments/helm/billing-service/values-prod.yaml'
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: billing-service
+
+permissions:
+  contents: write
+  id-token: write # Required for requesting the JWT OIDC token from GitHub
+
+jobs:
+  test:
+    name: Run Go Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Run Tests
+        run: go test -v ./...
+
+  build-and-deploy:
+    name: Build ECR Image & Update Tag
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::711396988882:role/github-actions-deploy-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, Tag, and Push Image to ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Update Helm Chart Image Tag
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+          
+          yq -i '.image.tag = env(IMAGE_TAG)' deployments/helm/billing-service/values-prod.yaml
+
+      - name: Commit and Push Changes to Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          if ! git diff --quiet; then
+            git add deployments/helm/billing-service/values-prod.yaml
+            git commit -m "chore(ops): update billing-service image tag to ${{ github.sha }} [skip ci]"
+            git push
+          else
+            echo "No changes in image tag."
+          fi

@@ -1,0 +1,25 @@
+# Production Helm configuration overrides for billing-service
+replicaCount: 1
+
+app:
+  environment: "production"
+
+image:
+  repository: 711396988882.dkr.ecr.ap-south-1.amazonaws.com/billing-service
+  pullPolicy: Always
+  tag: "latest"
+
+kafka:
+  brokerAddress: "warpstream-agent.warpstream.svc.cluster.local:9092"
+
+deploymentAnnotations:
+  reloader.stakater.com/auto: "true"
+
+stripe:
+  successUrl: "https://envoy.nirooz.xyz/billing/success?session_id={CHECKOUT_SESSION_ID}"
+  cancelUrl: "https://envoy.nirooz.xyz/pricing"
+
+externalSecret:
+  enabled: true
+  dataFrom:
+    - extractKey: prod/billing-service

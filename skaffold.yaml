@@ -8,15 +8,18 @@ build:
       context: .
       docker:
         dockerfile: Dockerfile
+      hooks:
+        before:
+          - command:
+              [
+                "cmd",
+                "/c",
+                "mkdir k8s-compiled 2>nul & helm template billing-service deployments/helm/billing-service -f deployments/helm/billing-service/values.yaml > k8s-compiled/billing-service.yaml",
+              ]
   local:
     push: false
+manifests:
+  rawYaml:
+    - k8s-compiled/billing-service.yaml
 deploy:
-  helm:
-    releases:
-      - name: billing-service
-        chartPath: ./billing-service
-        valuesFiles:
-          - ./billing-service/values.yaml
-        setValueTemplates:
-          image.repository: "{{.IMAGE_REPO_billing-service}}"
-          image.tag: "{{.IMAGE_TAG_billing-service}}"
+  kubectl: {}

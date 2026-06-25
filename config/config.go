@@ -80,6 +80,7 @@ func LoadConfig() (*Config, error) {
 	v.BindEnv("stripe.success_url", "STRIPE_SUCCESS_URL")
 	v.BindEnv("stripe.cancel_url", "STRIPE_CANCEL_URL")
 	v.BindEnv("kafka.broker_address", "KAFKA_BROKER_ADDRESS")
+	v.BindEnv("app.environment", "APP_ENV")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("error reading config file: %w", err)
@@ -91,7 +92,7 @@ func LoadConfig() (*Config, error) {
 	}
 	fmt.Println("DB HOST IS ",config.Database.Host)
 
-	config.Database.URL = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+	config.Database.URL = fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=require",
 		config.Database.User,
 		config.Database.Password,
 		config.Database.Host,

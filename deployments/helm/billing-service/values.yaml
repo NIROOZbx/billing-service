@@ -7,8 +7,9 @@ image:
   repository: billing-service
   pullPolicy: IfNotPresent
   tag: "latest"
+
 podAnnotations:
-  reloader.stakater.com/search: "true"
+  reloader.stakater.com/auto: "true"
 
 podLabels:
   tier: backend
@@ -53,23 +54,26 @@ resources:
     cpu: "500m"
     memory: "512Mi"
 
+app:
+  environment: "development"
+
 database:
-  name: "notif_db"
-  port: "5433"
   host: "host.docker.internal"
+  port: "5433"
+  name: "notif_db"
 
 kafka:
   brokerAddress: "host.docker.internal:9093"
 
 stripe:
-  successUrl: "http://localhost:5173/billing/success?session_id={CHECKOUT_SESSION_ID}"
-  cancelUrl: "http://localhost:5173/pricing"
+  successUrl: "http://envoy.nirooz.xyz/billing/success?session_id={CHECKOUT_SESSION_ID}"
+  cancelUrl: "http://envoy.nirooz.xyz/pricing"
 
 service:
   type: ClusterIP
 
 externalSecret:
-  enabled: true
+  enabled: false
   refreshInterval: "10m"
   secretStore:
     name: "envoy-secret-store"

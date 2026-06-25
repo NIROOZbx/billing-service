@@ -14,9 +14,9 @@ FROM alpine:3.23
 
 WORKDIR /app
 
-RUN adduser -D nirooz && chown -R nirooz:nirooz /app
+RUN adduser -u 1000 -D nirooz && chown -R nirooz:nirooz /app
 
-USER nirooz
+USER 1000
 
 COPY --chown=nirooz:nirooz --from=builder /app/backend .
 

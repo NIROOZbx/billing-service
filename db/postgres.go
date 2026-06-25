@@ -18,8 +18,10 @@ func ConnectDB(cfg config.DatabaseConfig) (*pgxpool.Pool, error) {
 		return nil, fmt.Errorf("unable to parse database URL: %v", err)
 	}
 
-	poolConfig.MaxConns = int32(cfg.MaxOpenConns)
-	poolConfig.MinConns = int32(cfg.MinOpenConns)
+poolConfig.MaxConns = int32(cfg.MaxOpenConns)
+poolConfig.MinConns = int32(cfg.MinOpenConns)
+poolConfig.MaxConnLifetime = cfg.MaxConnLifetime
+poolConfig.MaxConnIdleTime = cfg.MaxIdleTime
 
 	lifetime, err := time.ParseDuration(cfg.MaxConnLifetime.String())
 	if err == nil {

@@ -66,12 +66,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: DB_NAME
-              value: {{ .Values.database.name | quote }}
-            - name: DB_PORT
-              value: {{ .Values.database.port | quote }}
-            - name: DB_HOST
-              value: {{ .Values.database.host | quote }}
             - name: KAFKA_BROKER_ADDRESS
               value: {{ .Values.kafka.brokerAddress | quote }}
             - name: STRIPE_SUCCESS_URL

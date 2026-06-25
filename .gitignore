@@ -1,5 +1,11 @@
 .env
+.env.*.local
+*.pem
+*.key
+
 .task/
 PROJECT_CONTEXT.md
 logs/
+*.log
 bin/
+k8s-compiled/
