@@ -5,7 +5,7 @@ app:
 image:
   repository: 711396988882.dkr.ecr.ap-south-1.amazonaws.com/billing-service
   pullPolicy: Always
-  tag: "9e74797dc4d770c4cb440ea256d61ba08330db81"
+  tag: "4f85bec5effdb15c63ac52bff43ec7753fc02ec1"
 kafka:
   brokerAddress: "warpstream-agent.warpstream.svc.cluster.local:9092"
 deploymentAnnotations:
